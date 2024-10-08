@@ -1,3 +1,5 @@
+import random
+
 # Lista para salvar os treinos
 
 treino_data = []
@@ -56,15 +58,38 @@ def ordenar_data():
         mes = data[1]
         ano = data[2]
 
-        return dia + mes * 30.416 + ano * 365.25
+        return dia + mes * 31 + ano * 372
     
     global treino_data
     treinos_ordenados = sorted(treino_data, key=lambda treino: ord_func(treino))
 
     return treinos_ordenados
 
-add_treino("competição", (8, 10, 2024), 100, 40, "Recife", "Chuvoso")
-add_treino("competição", (2, 11, 2024), 90, 35, "Recife", "Chuvoso")
-add_treino("competição", (24, 9, 2024), 20, 10, "Recife", "Chuvoso")
+# Função que sugere um treino novo seguindo a média de distância e tempo do usuário
 
+def sugerir_treino():
+    media_dist = 0
+    media_tempo = 0
+
+    total = len(treino_data)
+
+    for treino in treino_data:
+        media_dist += treino[index["distancia"]] / total
+        media_tempo += treino[index["duracao"]] / total
+
+    delta_dist = int(media_dist / 5)
+    delta_tempo = int(media_tempo / 5)
+
+    std_dist = random.randint(-delta_dist, delta_dist)
+    std_tempo = random.randint(-delta_tempo, delta_tempo)
+
+    return ["treino", Data(8, 10, 2024), int(media_dist + std_dist), int(media_tempo + std_tempo), "Recife", "Aberto"]
+
+# Testando as funções
+
+add_treino("competição", Data(8, 10, 2024), 100, 40, "Recife", "Chuvoso")
+add_treino("competição", Data(2, 11, 2024), 90, 35, "Recife", "Chuvoso")
+add_treino("competição", Data(24, 9, 2024), 20, 10, "Recife", "Chuvoso")
+
+print(sugerir_treino())
 print(ordenar_data())
