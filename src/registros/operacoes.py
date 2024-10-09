@@ -30,6 +30,8 @@ def adicionarRegistro(dados):
 
     ferramentas.escreverCSV(registroCaminho, arquivo)
 
+    return novoRegistro
+
 
 # Ler um registro do banco de dados baseado no índice (começa no 1)
 
@@ -66,11 +68,11 @@ def atualizarRegistro(index, dados):
     return dados
 
 
-# Remover um registro do banco de dados
+# Deletar um registro do banco de dados
 # baseado no índice (começa no 1)
 
 
-def removerRegistro(index):
+def deletarRegistro(index):
     registro = lerRegistro(index)
 
     if not registro:
