@@ -26,3 +26,11 @@ def escreverCSV(caminho, dados):
         for formato in dados:
             linha = ",".join(str(valor) for valor in formato)
             arquivo.write(f"{linha}\n")
+
+
+# Definindo uma tupla para armazenar uma data
+
+
+def data(dia, mes, ano):
+    return (dia, mes, ano)
+
