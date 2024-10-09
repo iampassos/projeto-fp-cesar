@@ -3,8 +3,6 @@ from .. import ferramentas
 
 # Dicionário com os índices de cada informação por coluna na matriz
 
-registroCaminho = "./data/registros.csv"
-
 index = {
     "tipo": 0,
     "data": 1,
