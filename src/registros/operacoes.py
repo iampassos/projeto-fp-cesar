@@ -25,7 +25,7 @@ def adicionarRegistro(dados):
         arquivo.append(["tipo", "data", "distancia",
                         "duracao", "localizacao", "clima"])
 
-    novoRegistro = ",".join(str(valor) for valor in dados.values()).split(",")
+    novoRegistro = [str(valor) for valor in dados.values()]
     arquivo.append(novoRegistro)
 
     ferramentas.escreverCSV(registroCaminho, arquivo)

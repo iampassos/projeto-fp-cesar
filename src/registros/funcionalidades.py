@@ -14,11 +14,7 @@ index = {
 
 
 # Filtra os registros por um critério específico
-# Ao colocar a variável modo como: "distancia" o método
-# filtra os elementos pela distância
-# Ao colocar a variável modo como: "duracao" o método
-# filtra os elementos pela duração
-
+# O modo filtra pelas colunas (tipo, data, distancia, etc)
 
 def filtrar(dados, modo, data):
     indice = index[modo]
