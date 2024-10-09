@@ -14,6 +14,7 @@ def lerCSV(caminho):
 
     return dados
 
+
 # Escrever para arquivo .csv
 # Essa função vai escrever para o arquivo .csv no formato que ele precisa.
 # Aqui você pode reescrever o banco de dados inteiro, então cuidado
