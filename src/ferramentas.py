@@ -1,10 +1,15 @@
+import os
+
 # Ler de arquivo .csv
 # Essa função vai tratar os dados do arquivo .csv e vai retornar uma lista
-# com todos os dados
+# com todos os dados. Ela cria um novo arquivo caso ele não exista
 # Ex: [["nome", "idade"], ["João", 17], ["Mircio", 18]]
 
 
 def lerCSV(caminho):
+    if not os.path.exists(caminho):
+        escreverCSV(caminho, [])
+
     with open(caminho, "r") as arquivo:
         dados = []
 
