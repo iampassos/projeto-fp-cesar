@@ -18,20 +18,20 @@ index = {
 
 def filtrar(dados, modo, data):
     indice = index[modo]
-    registro_filtrado = []
+    registrosFiltrados = []
 
     for registro in dados:
         if registro[indice] == data:
-            registro_filtrado.append(registro)
+            registrosFiltrados.append(registro)
 
-    return registro_filtrado
+    return registrosFiltrados
 
 
 # Função que ordena os dados pelas datas
 
 
-def ordenar_data(dados):
-    def ord_func(registro):
+def ordenarData(dados):
+    def ordenar(registro):
         data = registro[index["data"]]
         dia = data[0]
         mes = data[1]
@@ -39,32 +39,32 @@ def ordenar_data(dados):
 
         return dia + mes * 31 + ano * 372
 
-    registros_ordenados = sorted(
-        dados, key=lambda registro: ord_func(registro))
+    registrosOrdenados = sorted(
+        dados, key=lambda registro: ordenar(registro))
 
-    return registros_ordenados
+    return registrosOrdenados
 
 
 # Função que sugere um treino novo seguindo
 # a média de distância e tempo do usuário
 
 
-def sugerir_treino(dados):
-    media_dist = 0
-    media_tempo = 0
+def sugerirTreino(dados):
+    mediaDist = 0
+    mediaTempo = 0
 
     total = len(dados)
 
     for registro in dados:
-        media_dist += registro[index["distancia"]] / total
-        media_tempo += registro[index["duracao"]] / total
+        mediaDist += registro[index["distancia"]] / total
+        mediaTempo += registro[index["duracao"]] / total
 
-    delta_dist = int(media_dist / 5)
-    delta_tempo = int(media_tempo / 5)
+    deltaDist = int(mediaDist / 5)
+    deltaTempo = int(mediaTempo / 5)
 
-    std_dist = random.randint(-delta_dist, delta_dist)
-    std_tempo = random.randint(-delta_tempo, delta_tempo)
+    stdDist = random.randint(-deltaDist, deltaDist)
+    stdTempo = random.randint(-deltaTempo, deltaTempo)
 
     return ["treino", ferramentas.data(8, 10, 2024),
-            int(media_dist + std_dist), int(media_tempo + std_tempo),
+            int(mediaDist + stdDist), int(mediaTempo + stdTempo),
             "Recife", "Aberto"]
