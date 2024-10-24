@@ -37,8 +37,7 @@ def ler_registro(index=None):
     if index >= len(arquivo) or index < 0:
         return None
 
-    dados = arquivo[index]
-    registro = Registro.Registro(*dados)
+    registro = Registro.Registro(*arquivo[index])
 
     return registro
 
