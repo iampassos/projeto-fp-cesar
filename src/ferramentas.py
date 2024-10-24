@@ -1,10 +1,10 @@
 import os
 
+
 # Ler de arquivo .csv
 # Essa função vai tratar os dados do arquivo .csv e vai retornar uma lista
 # com todos os dados. Ela cria um novo arquivo caso ele não exista
 # Ex: [["nome", "idade"], ["João", 17], ["Mircio", 18]]
-
 
 def ler_csv(caminho):
     if not os.path.exists(caminho):
@@ -25,7 +25,6 @@ def ler_csv(caminho):
 # Aqui você pode reescrever o banco de dados inteiro, então cuidado
 # Ex: [["nome", "idade"], ["João", 17], ["Mircio", 18]]
 
-
 def escrever_csv(caminho, dados):
     with open(caminho, "w") as arquivo:
         for formato in dados:
@@ -34,7 +33,6 @@ def escrever_csv(caminho, dados):
 
 
 # Definindo uma tupla para armazenar uma data
-
 
 def data(dia, mes, ano):
     return (dia, mes, ano)
