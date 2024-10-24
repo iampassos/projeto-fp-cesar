@@ -6,9 +6,9 @@ import os
 # Ex: [["nome", "idade"], ["João", 17], ["Mircio", 18]]
 
 
-def lerCSV(caminho):
+def ler_csv(caminho):
     if not os.path.exists(caminho):
-        escreverCSV(caminho, [])
+        escrever_csv(caminho, [])
 
     with open(caminho, "r") as arquivo:
         dados = []
@@ -26,7 +26,7 @@ def lerCSV(caminho):
 # Ex: [["nome", "idade"], ["João", 17], ["Mircio", 18]]
 
 
-def escreverCSV(caminho, dados):
+def escrever_csv(caminho, dados):
     with open(caminho, "w") as arquivo:
         for formato in dados:
             linha = ",".join(str(valor) for valor in formato)

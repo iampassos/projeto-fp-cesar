@@ -18,19 +18,19 @@ index = {
 
 def filtrar(dados, modo, data):
     indice = index[modo]
-    registrosFiltrados = []
+    registros_filtrados = []
 
     for registro in dados:
         if registro[indice] == data:
-            registrosFiltrados.append(registro)
+            registros_filtrados.append(registro)
 
-    return registrosFiltrados
+    return registros_filtrados
 
 
 # Função que ordena os dados pelas datas
 
 
-def ordenarData(dados):
+def ordenar_data(dados):
     def ordenar(registro):
         data = registro[index["data"]]
         dia = data[0]
@@ -39,32 +39,32 @@ def ordenarData(dados):
 
         return dia + mes * 31 + ano * 372
 
-    registrosOrdenados = sorted(
+    registros_ordenados = sorted(
         dados, key=lambda registro: ordenar(registro))
 
-    return registrosOrdenados
+    return registros_ordenados
 
 
 # Função que sugere um treino novo seguindo
 # a média de distância e tempo do usuário
 
 
-def sugerirTreino(dados):
-    mediaDist = 0
-    mediaTempo = 0
+def sugerir_treino(dados):
+    media_dist = 0
+    media_tempo = 0
 
     total = len(dados)
 
     for registro in dados:
-        mediaDist += registro[index["distancia"]] / total
-        mediaTempo += registro[index["duracao"]] / total
+        media_dist += registro[index["distancia"]] / total
+        media_tempo += registro[index["duracao"]] / total
 
-    deltaDist = int(mediaDist / 5)
-    deltaTempo = int(mediaTempo / 5)
+    delta_dist = int(media_dist / 5)
+    delta_tempo = int(media_tempo / 5)
 
-    stdDist = random.randint(-deltaDist, deltaDist)
-    stdTempo = random.randint(-deltaTempo, deltaTempo)
+    std_dist = random.randint(-delta_dist, delta_dist)
+    std_tempo = random.randint(-delta_tempo, delta_tempo)
 
     return ["treino", ferramentas.data(8, 10, 2024),
-            int(mediaDist + stdDist), int(mediaTempo + stdTempo),
+            int(media_dist + std_dist), int(media_tempo + std_tempo),
             "Recife", "Aberto"]

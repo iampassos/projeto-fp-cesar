@@ -12,32 +12,32 @@ from .. import ferramentas
 # }
 # Em algumas funções, será retornado uma LISTA ou None
 
-registroCaminho = "./data/registros.csv"
+registro_caminho = "./data/registros.csv"
 
 
 # Adicionar um registro ao banco de dados
 
 
-def adicionarRegistro(dados):
-    arquivo = ferramentas.lerCSV(registroCaminho)
+def adicionar_registro(dados):
+    arquivo = ferramentas.ler_csv(registro_caminho)
 
     if len(arquivo) == 0:
         arquivo.append(["tipo", "data", "distancia",
                         "duracao", "localizacao", "clima"])
 
-    novoRegistro = [str(valor) for valor in dados.values()]
-    arquivo.append(novoRegistro)
+    novo_registro = [str(valor) for valor in dados.values()]
+    arquivo.append(novo_registro)
 
-    ferramentas.escreverCSV(registroCaminho, arquivo)
+    ferramentas.escrever_csv(registro_caminho, arquivo)
 
-    return novoRegistro
+    return novo_registro
 
 
 # Ler um registro do banco de dados baseado no índice (começa no 1)
 
 
-def lerRegistro(index=None):
-    arquivo = ferramentas.lerCSV(registroCaminho)
+def ler_registro(index=None):
+    arquivo = ferramentas.ler_csv(registro_caminho)
 
     if not index:
         return arquivo
@@ -51,19 +51,19 @@ def lerRegistro(index=None):
 # Atualizar um registro do banco de dados
 # a partir do índice (começa no 1)
 # Obs: dados são uma LISTA com os dados em ordem
-# atualizarRegistro(0, ["", "", etc..])
+# atualizar_registro(0, ["", "", etc..])
 
 
-def atualizarRegistro(index, dados):
-    registro = lerRegistro(index)
+def atualizar_registro(index, dados):
+    registro = ler_registro(index)
 
     if not registro:
         return None
 
-    arquivo = ferramentas.lerCSV(registroCaminho)
+    arquivo = ferramentas.ler_csv(registro_caminho)
     arquivo[index] = dados
 
-    ferramentas.escreverCSV(registroCaminho, arquivo)
+    ferramentas.escrever_csv(registro_caminho, arquivo)
 
     return dados
 
@@ -72,14 +72,14 @@ def atualizarRegistro(index, dados):
 # baseado no índice (começa no 1)
 
 
-def deletarRegistro(index):
-    registro = lerRegistro(index)
+def deletar_registro(index):
+    registro = ler_registro(index)
 
     if not registro:
         return
 
-    arquivo = ferramentas.lerCSV(registroCaminho)
+    arquivo = ferramentas.ler_csv(registro_caminho)
     arquivo.pop(index)
 
-    ferramentas.escreverCSV(registroCaminho, arquivo)
+    ferramentas.escrever_csv(registro_caminho, arquivo)
 
