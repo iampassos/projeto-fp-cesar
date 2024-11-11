@@ -1,10 +1,23 @@
 class Data:
-    def __init__(self, str):
-        dia, mes, ano = str.split("/")
+    """
+    Armazena uma data -> dia/mes/ano
+    """
+    def __init__(self, dataStr: str) -> None:
+        """
+        Argumentos:
 
-        self.dia = int(dia)
-        self.mes = int(mes)
-        self.ano = int(ano)
+            dataStr: String contendo o conteúdo da data "DD/MM/AA"
 
-    def __str__(self):
+        Salva o dia, mês e ano em valores inteiros.
+        """
+        dia, mes, ano = dataStr.split("/")
+
+        self.dia: int = int(dia)
+        self.mes: int = int(mes)
+        self.ano: int = int(ano)
+
+    def __str__(self) -> str:
+        """
+        Retorna uma string com a data formatada "DD/MM/AA"
+        """
         return f"{self.dia:02}/{self.mes:02}/{self.ano}"
