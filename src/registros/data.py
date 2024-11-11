@@ -2,7 +2,8 @@ class Data:
     """
     Classe para armazenar uma data no formato dia/mês/ano.
 
-    A classe `Data` permite representar uma data a partir de uma string no formato "DD/MM/AA" e
+    A classe `Data` permite representar uma data a partir de uma string no
+    formato "DD/MM/AA" e
     fornece métodos para acessar e exibir essa data de maneira formatada.
 
     Atributos:
@@ -12,15 +13,17 @@ class Data:
 
     Métodos:
         __init__(self, dataStr: str) -> None:
-            Inicializa uma instância da classe `Data` a partir de uma string de data.
-        
+            Inicializa uma instância da classe `Data` a partir de uma string
+            de data.
+
         __str__(self) -> str:
             Retorna a data formatada como uma string no formato "DD/MM/AA".
     """
 
     def __init__(self, dataStr: str) -> None:
         """
-        Inicializa uma instância de `Data` a partir de uma string no formato "DD/MM/AA".
+        Inicializa uma instância de `Data` a partir de uma string no formato
+        "DD/MM/AA".
 
         Argumentos:
             dataStr (str): String contendo a data no formato "DD/MM/AA".
