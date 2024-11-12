@@ -1,4 +1,4 @@
-from data import Data
+from .. import data as Data
 
 
 class Registro:
@@ -44,7 +44,7 @@ class Registro:
             clima (str): Condições climáticas durante o evento.
         """
         self.tipo: str = tipo
-        self.data: Data = Data(data)
+        self.data: Data.Data = Data.Data(data)
         self.distancia: int = distancia
         self.duracao: int = duracao
         self.localizacao: str = localizacao
