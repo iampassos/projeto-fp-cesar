@@ -3,6 +3,7 @@ from . import registro as Registro
 
 registro_caminho: str = "./data/registros.csv"
 
+
 def adicionar_registro(dados: Registro.Registro) -> list[str]:
     """
     Adiciona um novo registro de treino ou competição ao arquivo CSV.
@@ -16,11 +17,11 @@ def adicionar_registro(dados: Registro.Registro) -> list[str]:
 
     Returns:
         list[str]: Lista de strings representando o novo registro, formatado como uma linha do CSV.
-    
+
     Dependências:
         ferramentas.ler_csv: Função para ler o conteúdo do CSV.
         ferramentas.escrever_csv: Função para escrever dados no CSV.
-    
+
     Exemplo de uso:
         registro = Registro("treino", "01/01/24", 5, 30, "Parque", "Ensolarado")
         novo_registro = adicionar_registro(registro)
@@ -28,7 +29,8 @@ def adicionar_registro(dados: Registro.Registro) -> list[str]:
     """
     arquivo: list[list[str]] = ferramentas.ler_csv(registro_caminho)
 
-    atributos: list[str] = ["tipo", "data", "distancia", "duracao", "localizacao", "clima"]
+    atributos: list[str] = ["tipo", "data",
+                            "distancia", "duracao", "localizacao", "clima"]
 
     if len(arquivo) == 0:
         arquivo.append(atributos)
@@ -39,6 +41,7 @@ def adicionar_registro(dados: Registro.Registro) -> list[str]:
     ferramentas.escrever_csv(registro_caminho, arquivo)
 
     return novo_registro
+
 
 def index_valido(index: int, arquivo: list[list[str]]) -> bool:
     """
@@ -58,6 +61,7 @@ def index_valido(index: int, arquivo: list[list[str]]) -> bool:
         valido = index_valido(3, arquivo)  # Retorna `True` se o índice 3 existir no arquivo.
     """
     return index >= 0 and index < len(arquivo)
+
 
 def ler_registro(index: int = None) -> Registro.Registro | list[Registro.Registro] | None:
     """
@@ -96,6 +100,7 @@ def ler_registro(index: int = None) -> Registro.Registro | list[Registro.Registr
 
     return registro
 
+
 def atualizar_registro(index: int, dados: Registro) -> None:
     """
     Atualiza um registro específico em um arquivo CSV com os novos dados fornecidos.
@@ -124,10 +129,11 @@ def atualizar_registro(index: int, dados: Registro) -> None:
 
     if not index_valido(index, arquivo):
         return None
-    
+
     arquivo[index] = [*dados.__dict__.values()]
 
     ferramentas.escrever_csv(registro_caminho, arquivo)
+
 
 def deletar_registro(index: int) -> None:
     """
@@ -154,7 +160,7 @@ def deletar_registro(index: int) -> None:
 
     if not index_valido(index, arquivo):
         return None
-    
+
     arquivo.pop(index)
 
     ferramentas.escrever_csv(registro_caminho, arquivo)
