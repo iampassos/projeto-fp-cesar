@@ -8,6 +8,18 @@ dados_usuario_caminho = "usuario.csv"
 
 
 def adicionar_usuario(dados: Usuario) -> Usuario:
+    """
+    Adiciona um novo usuário ao sistema.
+
+    Argumentos:
+        dados (Usuario): O objeto Usuario a ser adicionado.
+
+    Retorna:
+        Usuario: O usuário adicionado.
+
+    Exemplo de uso:
+        novo_usuario = adicionar_usuario(usuario_obj)
+    """
     caminho = f"{usuarios_caminho}/{dados.email}/"
 
     if os.path.exists(caminho + "usuario.csv"):
@@ -31,6 +43,19 @@ def adicionar_usuario(dados: Usuario) -> Usuario:
 
 
 def ler_usuario(email: str | None = None) -> Usuario | list[Usuario] | None:
+    """
+    Lê um usuário ou todos os usuários registrados.
+
+    Argumentos:
+        email (str, opcional): O e-mail do usuário a ser lido.
+
+    Retorna:
+        Usuario | list[Usuario] | None: O usuário com o e-mail fornecido ou uma lista de todos os usuários, ou None caso não encontrado.
+
+    Exemplo de uso:
+        usuario = ler_usuario("email@example.com")
+        todos_usuarios = ler_usuario()
+    """
     usuarios = os.listdir(usuarios_caminho)
 
     if not email:
@@ -57,6 +82,16 @@ def ler_usuario(email: str | None = None) -> Usuario | list[Usuario] | None:
 
 
 def atualizar_usuario(email: str, dados: Usuario) -> None:
+    """
+    Atualiza os dados de um usuário.
+
+    Argumentos:
+        email (str): O e-mail do usuário a ser atualizado.
+        dados (Usuario): O novo objeto Usuario com os dados atualizados.
+
+    Exemplo de uso:
+        atualizar_usuario("email@example.com", usuario_atualizado)
+    """
     caminho = f"{usuarios_caminho}/{email}/"
 
     if not ler_usuario(email):
@@ -71,6 +106,15 @@ def atualizar_usuario(email: str, dados: Usuario) -> None:
 
 
 def deletar_usuario(email: str) -> None:
+    """
+    Deleta um usuário do sistema.
+
+    Argumentos:
+        email (str): O e-mail do usuário a ser deletado.
+
+    Exemplo de uso:
+        deletar_usuario("email@example.com")
+    """
     caminho = f"{usuarios_caminho}/{email}/"
 
     if os.path.exists(caminho):
