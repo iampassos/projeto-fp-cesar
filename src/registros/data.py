@@ -35,16 +35,17 @@ class Data:
         self.mes: int = int(mes)
         self.ano: int = int(ano)
 
-    def data_atual(self):
+    @staticmethod
+    def data_atual():
         from datetime import datetime
 
         # Obtendo a data e hora atual
         data_hoje = datetime.now()
 
         # Exibindo apenas a data (sem a hora)
-        self.ano, self.mes, self.dia = data_hoje.date().split("-")
+        ano, mes, dia = data_hoje.date().split("-")
 
-        return self.__str__()
+        return Data(f"{dia:02}/{mes:02}/{ano:04}")
 
     def __str__(self) -> str:
         """
@@ -53,4 +54,4 @@ class Data:
         Returns:
             str: Data formatada como "DD/MM/AA".
         """
-        return f"{self.dia:02}/{self.mes:02}/{self.ano}"
+        return f"{self.dia:02}/{self.mes:02}/{self.ano:04}"

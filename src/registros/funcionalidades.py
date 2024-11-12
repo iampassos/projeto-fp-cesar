@@ -121,7 +121,7 @@ def sugerir_treino(dados: list[dict]) -> Registro:
     # Retornando o treino sugerido
     return Registro(
         "treino",
-        Data(8, 10, 2024),  # Assumindo que `ferramentas.data` cria a data corretamente
+        Data.data_atual(),
         int(media_dist + std_dist),  # Distância sugerida ajustada
         int(media_tempo + std_tempo),  # Duração sugerida ajustada
         "Recife",  # Local do treino
