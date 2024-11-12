@@ -33,6 +33,16 @@ def filtrar(dados: list[Registro], modo: str, valor) -> list[Registro]:
     return registros_filtrados
 
 
+def filtrar_mes(dados: list[Registro.Registro], mes: int, ano: int):
+    filtrados = []
+
+    for i in dados:
+        if i.data.mes == mes and i.data.ano == ano:
+            filtrados.append(i)
+
+    return filtrados
+
+
 def ordenar_data(dados: list[Registro]) -> list[Registro]:
     """
     Ordena uma lista de registros com base na data em ordem cronológica.
