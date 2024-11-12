@@ -1,11 +1,11 @@
 from .. import ferramentas
 from . import meta as Meta
 
-metas_caminho: str = "./data/metas.csv"
+metas_caminho: str = "metas.csv"
 
 
-def adicionar_meta(dados: Meta.Meta) -> list[str]:
-    arquivo: list[list[str]] = ferramentas.ler_csv(metas_caminho)
+def adicionar_meta(caminho: str, dados: Meta.Meta) -> list[str]:
+    arquivo: list[list[str]] = ferramentas.ler_csv(caminho + metas_caminho)
 
     atributos: list[str] = ["tipo, descricao", "quantidade"]
 
@@ -15,7 +15,7 @@ def adicionar_meta(dados: Meta.Meta) -> list[str]:
     novo_meta: list[str] = dados.__str__().split(", ")
     arquivo.append(novo_meta)
 
-    ferramentas.escrever_csv(metas_caminho, arquivo)
+    ferramentas.escrever_csv(caminho + metas_caminho, arquivo)
 
     return novo_meta
 
@@ -24,8 +24,8 @@ def index_valido(index: int, arquivo: list[list[str]]) -> bool:
     return index >= 0 and index < len(arquivo)
 
 
-def ler_meta(index: int = None) -> Meta.Meta | list[Meta.Meta] | None:
-    arquivo: list[list[str]] = ferramentas.ler_csv(metas_caminho)
+def ler_meta(caminho: str, index: int = None) -> Meta.Meta | list[Meta.Meta] | None:
+    arquivo: list[list[str]] = ferramentas.ler_csv(caminho + metas_caminho)
 
     if not index:
         return [Meta(*dados) for dados in arquivo]
@@ -38,23 +38,24 @@ def ler_meta(index: int = None) -> Meta.Meta | list[Meta.Meta] | None:
     return meta
 
 
-def atualizar_meta(index: int, dados: Meta) -> None:
-    arquivo: list[list[str]] = ferramentas.ler_csv(metas_caminho)
+def atualizar_meta(caminho: str, index: int, dados: Meta) -> None:
+    arquivo: list[list[str]] = ferramentas.ler_csv(caminho + metas_caminho)
 
     if not index_valido(index, arquivo):
         return None
 
     arquivo[index] = [*dados.__dict__.values()]
 
-    ferramentas.escrever_csv(metas_caminho, arquivo)
+    ferramentas.escrever_csv(caminho + metas_caminho, arquivo)
 
 
-def deletar_meta(index: int) -> None:
-    arquivo: list[list[str]] = ferramentas.ler_csv(metas_caminho)
+def deletar_meta(caminho: str, index: int) -> None:
+    arquivo: list[list[str]] = ferramentas.ler_csv(caminho + metas_caminho)
 
     if not index_valido(index, arquivo):
         return None
 
     arquivo.pop(index)
 
-    ferramentas.escrever_csv(metas_caminho, arquivo)
+    ferramentas.escrever_csv(caminho + metas_caminho, arquivo)
+
