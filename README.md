@@ -1,4 +1,5 @@
 # projeto-fp-cesar
+
 # Corridinha
 
 Este projeto tem como finalidade uma aplicação para registar dados de corrida e competições de variso usuarios, os quais podem se cadastrar e logar em suas contas.
@@ -8,9 +9,9 @@ Este projeto tem como finalidade uma aplicação para registar dados de corrida 
 Realizadores:
 
 * Mircio Ferreira dos Santos Neto
-* Eric 
-* João Vitor Passos
-* João Guilherme
+* Eric Gonçalves Albuquerque
+* João Vitor Assumpção Passos 
+* João Guilherme Bezerra Omena Fragoso
 * Bruno Santana dos Santos Araujo Holanda 
 
 Orientadoras:
