@@ -1,7 +1,7 @@
 import os
 
 
-def ler_csv(caminho):
+def ler_csv(caminho, criar=True):
     """
     Lê dados de um arquivo CSV.
 
@@ -16,7 +16,7 @@ def ler_csv(caminho):
         list: Lista de listas contendo os dados do CSV.
               Exemplo: [["nome", "idade"], ["João", 17], ["Mircio", 18]]
     """
-    if not os.path.exists(caminho):
+    if not os.path.exists(caminho) and criar:
         escrever_csv(caminho, [])
 
     with open(caminho, "r", encoding="utf8") as arquivo:
