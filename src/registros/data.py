@@ -35,6 +35,17 @@ class Data:
         self.mes: int = int(mes)
         self.ano: int = int(ano)
 
+    def data_atual(self):
+        from datetime import datetime
+
+        # Obtendo a data e hora atual
+        data_hoje = datetime.now()
+
+        # Exibindo apenas a data (sem a hora)
+        self.ano, self.mes, self.dia = data_hoje.date().split("-")
+
+        return self.__str__()
+
     def __str__(self) -> str:
         """
         Retorna uma representação em string da data no formato "DD/MM/AA".

@@ -1,5 +1,7 @@
 import random
-from .. import ferramentas
+from registro import Registro
+from data import Data
+
 
 def filtrar(dados: list[Registro], modo: str, valor) -> list[Registro]:
     """
@@ -30,12 +32,13 @@ def filtrar(dados: list[Registro], modo: str, valor) -> list[Registro]:
 
     return registros_filtrados
 
+
 def ordenar_data(dados: list[Registro]) -> list[Registro]:
     """
     Ordena uma lista de registros com base na data em ordem cronológica.
 
     A função organiza uma lista de objetos `Registro` em ordem cronológica com base no atributo `data`.
-    Cada data é convertida em um valor numérico para permitir a comparação, onde o cálculo considera 
+    Cada data é convertida em um valor numérico para permitir a comparação, onde o cálculo considera
     o dia, mês e ano para determinar a posição cronológica correta.
 
     Args:
@@ -53,6 +56,7 @@ def ordenar_data(dados: list[Registro]) -> list[Registro]:
         registros_ordenados = ordenar_data(registros)
         # Retorna a lista `registros` ordenada cronologicamente.
     """
+
     def ordenar(registro: Registro) -> int:
         data = registro.data  # Assumindo que `data` é um objeto `Data`
         dia = data.dia
@@ -65,17 +69,18 @@ def ordenar_data(dados: list[Registro]) -> list[Registro]:
 
     return registros_ordenados
 
-def sugerir_treino(dados: list[dict]) -> list:
+
+def sugerir_treino(dados: list[dict]) -> Registro:
     """
     Sugere um novo treino com base nas médias de distância e duração dos treinos anteriores.
 
     A função calcula a média das distâncias e durações dos registros fornecidos, em seguida adiciona um valor
     aleatório baseado em uma variação calculada para sugerir um treino personalizado. O treino sugerido é retornado
-    com um formato específico, incluindo a data sugerida, a distância e a duração ajustadas aleatoriamente, 
+    com um formato específico, incluindo a data sugerida, a distância e a duração ajustadas aleatoriamente,
     e outras informações fixas.
 
     Args:
-        dados (list[dict]): Lista de registros de treinos anteriores, onde cada registro é um dicionário com chaves 
+        dados (list[dict]): Lista de registros de treinos anteriores, onde cada registro é um dicionário com chaves
                              "distancia" (em km) e "duracao" (em minutos).
 
     Returns:
@@ -114,11 +119,11 @@ def sugerir_treino(dados: list[dict]) -> list:
     std_tempo = random.randint(-delta_tempo, delta_tempo)
 
     # Retornando o treino sugerido
-    return [
-        "treino", 
-        ferramentas.data(8, 10, 2024),  # Assumindo que `ferramentas.data` cria a data corretamente
+    return Registro(
+        "treino",
+        Data(8, 10, 2024),  # Assumindo que `ferramentas.data` cria a data corretamente
         int(media_dist + std_dist),  # Distância sugerida ajustada
         int(media_tempo + std_tempo),  # Duração sugerida ajustada
         "Recife",  # Local do treino
-        "Aberto"  # Clima do treino
-    ]
+        "Aberto",  # Clima do treino
+    )
