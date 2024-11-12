@@ -1,6 +1,6 @@
 class Meta:
-    def __init__(self, tipo: str, descricao: str, quantidade: int,
-                 tempo=None) -> None:
+    def __init__(self, tipo, descricao, quantidade,
+                 tempo=None):
         self.tipo = tipo
         self.descricao = descricao
         self.quantidade = quantidade

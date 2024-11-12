@@ -1,10 +1,8 @@
 from datetime import datetime
-from ..registros import registro as Registro
 from ..registros import funcionalidades
-from . import meta as Meta
 
 
-def acompanhar_meta_distancia(dados: list[Registro.Registro], meta: Meta.Meta):
+def acompanhar_meta_distancia(dados, meta):
     filtrados = funcionalidades.registros_mes(dados, datetime.now().month)
 
     soma = 0
@@ -15,7 +13,7 @@ def acompanhar_meta_distancia(dados: list[Registro.Registro], meta: Meta.Meta):
     return soma
 
 
-def acompanhar_meta_tempo(dados: list[Registro.Registro], meta: Meta.Meta):
+def acompanhar_meta_tempo(dados, meta):
     filtrados = funcionalidades.registros_mes(
         dados, datetime.now().month, datetime.now().year % 100)
 

@@ -1,25 +1,19 @@
 from .. import ferramentas
-from . import registro as Registro
+from . import registro
 
-registro_caminho: str = "registros.csv"
+registro_caminho = "registros.csv"
 
 
-def adicionar_registro(caminho: str, dados: Registro) -> list[str]:
-    arquivo: list[list[str]] = ferramentas.ler_csv(caminho + registro_caminho)
+def adicionar_registro(caminho, dados):
+    arquivo = ferramentas.ler_csv(caminho + registro_caminho)
 
-    atributos: list[str] = [
-        "tipo",
-        "data",
-        "distancia",
-        "duracao",
-        "localizacao",
-        "clima",
-    ]
+    atributos = ["tipo", "data", "distancia",
+                 "duracao", "localizacao", "clima", ]
 
     if len(arquivo) == 0:
         arquivo.append(atributos)
 
-    novo_registro: list[str] = dados.__dict__.values()
+    novo_registro = dados.__dict__.values()
     arquivo.append(novo_registro)
 
     ferramentas.escrever_csv(caminho + registro_caminho, arquivo)
@@ -27,26 +21,26 @@ def adicionar_registro(caminho: str, dados: Registro) -> list[str]:
     return novo_registro
 
 
-def index_valido(index: int, arquivo: list[list[str]]) -> bool:
+def index_valido(index, arquivo):
     return index >= 0 and index < len(arquivo)
 
 
-def ler_registro(caminho: str, index: int = None):
-    arquivo: list[list[str]] = ferramentas.ler_csv(caminho + registro_caminho)
+def ler_registro(caminho, index=None):
+    arquivo = ferramentas.ler_csv(caminho + registro_caminho)
 
     if not index:
-        return [Registro(*dados) for dados in arquivo]
+        return [registro.Registro(*dados) for dados in arquivo]
 
     if not index_valido(index, arquivo):
         return None
 
-    registro: Registro = Registro(*arquivo[index])
+    registro_lido = registro.Registro(*arquivo[index])
 
-    return registro
+    return registro_lido
 
 
-def atualizar_registro(caminho: str, index: int, dados: Registro) -> None:
-    arquivo: list[list[str]] = ferramentas.ler_csv(caminho + registro_caminho)
+def atualizar_registro(caminho, index, dados):
+    arquivo = ferramentas.ler_csv(caminho + registro_caminho)
 
     if not index_valido(index, arquivo):
         return None
@@ -56,8 +50,8 @@ def atualizar_registro(caminho: str, index: int, dados: Registro) -> None:
     ferramentas.escrever_csv(caminho + registro_caminho, arquivo)
 
 
-def deletar_registro(caminho: str, index: int) -> None:
-    arquivo: list[list[str]] = ferramentas.ler_csv(caminho + registro_caminho)
+def deletar_registro(caminho, index):
+    arquivo = ferramentas.ler_csv(caminho + registro_caminho)
 
     if not index_valido(index, arquivo):
         return None

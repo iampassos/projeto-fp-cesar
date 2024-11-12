@@ -3,11 +3,11 @@ import shutil
 from .. import ferramentas
 from . import usuario
 
-usuarios_caminho: str = "./data"
+usuarios_caminho = "./data"
 dados_usuario_caminho = "usuario.csv"
 
 
-def adicionar_usuario(dados: usuario.Usuario):
+def adicionar_usuario(dados):
     caminho = f"{usuarios_caminho}/{dados.email}/"
 
     if os.path.exists(caminho + "usuario.csv"):
@@ -31,7 +31,7 @@ def adicionar_usuario(dados: usuario.Usuario):
     return novo_usuario
 
 
-def ler_usuario(email: str = None):
+def ler_usuario(email=None):
     usuarios = os.listdir(usuarios_caminho)
 
     if not email:
@@ -58,7 +58,7 @@ def ler_usuario(email: str = None):
         return usuario.Usuario(*dados[0])
 
 
-def atualizar_usuario(email: str, dados: usuario.Usuario):
+def atualizar_usuario(email, dados):
     caminho = f"{usuarios_caminho}/{email}/"
 
     if not ler_usuario(email):
@@ -75,7 +75,7 @@ def atualizar_usuario(email: str, dados: usuario.Usuario):
     return novo_usuario
 
 
-def deletar_usuario(email: str) -> None:
+def deletar_usuario(email):
     caminho = f"{usuarios_caminho}/{email}/"
 
     if os.path.exists(caminho):
