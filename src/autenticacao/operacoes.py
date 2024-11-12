@@ -1,13 +1,13 @@
 import os
 import shutil
 from .. import ferramentas
-from . import usuario
+from .usuario import Usuario
 
 usuarios_caminho = "./data"
 dados_usuario_caminho = "usuario.csv"
 
 
-def adicionar_usuario(dados):
+def adicionar_usuario(dados: Usuario) -> Usuario:
     caminho = f"{usuarios_caminho}/{dados.email}/"
 
     if os.path.exists(caminho + "usuario.csv"):
@@ -15,8 +15,7 @@ def adicionar_usuario(dados):
 
     os.makedirs(caminho, exist_ok=True)
 
-    arquivo = ferramentas.ler_csv(
-        caminho + dados_usuario_caminho)
+    arquivo = ferramentas.ler_csv(caminho + dados_usuario_caminho)
 
     atributos = ["nome", "email", "senha"]
 
@@ -31,7 +30,7 @@ def adicionar_usuario(dados):
     return novo_usuario
 
 
-def ler_usuario(email=None):
+def ler_usuario(email: str | None = None) -> Usuario | list[Usuario] | None:
     usuarios = os.listdir(usuarios_caminho)
 
     if not email:
@@ -41,10 +40,9 @@ def ler_usuario(email=None):
             if i == ".gitkeep":
                 continue
 
-            dados = ferramentas.ler_csv(
-                f"{usuarios_caminho}/{i}/usuario.csv")
+            dados = ferramentas.ler_csv(f"{usuarios_caminho}/{i}/usuario.csv")
 
-            resultados.append(usuario.Usuario(*dados[0]))
+            resultados.append(Usuario(*dados[0]))
 
         return resultados
 
@@ -55,10 +53,10 @@ def ler_usuario(email=None):
         if len(dados) == 0:
             return None
 
-        return usuario.Usuario(*dados[0])
+        return Usuario(*dados[0])
 
 
-def atualizar_usuario(email, dados):
+def atualizar_usuario(email: str, dados: Usuario) -> None:
     caminho = f"{usuarios_caminho}/{email}/"
 
     if not ler_usuario(email):
@@ -72,7 +70,7 @@ def atualizar_usuario(email, dados):
     ferramentas.escrever_csv(caminho + dados_usuario_caminho, arquivo)
 
 
-def deletar_usuario(email):
+def deletar_usuario(email: str) -> None:
     caminho = f"{usuarios_caminho}/{email}/"
 
     if os.path.exists(caminho):

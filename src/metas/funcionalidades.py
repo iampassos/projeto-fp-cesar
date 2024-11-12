@@ -1,8 +1,9 @@
 from datetime import datetime
 from ..registros import funcionalidades
+from .meta import Meta
 
 
-def acompanhar_meta_distancia(dados, meta):
+def acompanhar_meta_distancia(dados: list[Meta], meta: Meta) -> float:
     filtrados = funcionalidades.filtrar_mes(
         dados, datetime.now().month, datetime.now().year % 100)
 
@@ -11,7 +12,7 @@ def acompanhar_meta_distancia(dados, meta):
     return total
 
 
-def acompanhar_meta_tempo(dados, meta):
+def acompanhar_meta_tempo(dados: list[Meta], meta: Meta) -> list[list[Meta, bool]]:
     filtrados = funcionalidades.filtrar_mes(
         dados, datetime.now().month, datetime.now().year % 100)
 
@@ -22,4 +23,3 @@ def acompanhar_meta_tempo(dados, meta):
         resultados.append([i, tempo >= (meta.distancia / meta.tempo) * 60])
 
     return resultados
-

@@ -1,10 +1,10 @@
 from .. import ferramentas
-from . import meta
+from .meta import Meta
 
 metas_caminho = "metas.csv"
 
 
-def adicionar_meta(caminho, dados):
+def adicionar_meta(caminho: str, dados: Meta) -> Meta:
     arquivo = ferramentas.ler_csv(caminho + metas_caminho)
 
     atributos = ["tipo", "distancia", "tempo"]
@@ -12,33 +12,31 @@ def adicionar_meta(caminho, dados):
     if len(arquivo) == 0:
         arquivo.append(atributos)
 
-    novo_meta = dados.__str__().split(", ")
-    arquivo.append(novo_meta)
+    nova_meta = dados.__str__().split(", ")
+    arquivo.append(nova_meta)
 
     ferramentas.escrever_csv(caminho + metas_caminho, arquivo)
 
-    return novo_meta
+    return Meta(*nova_meta)
 
 
-def index_valido(index, arquivo):
+def index_valido(index: int, arquivo: list) -> bool:
     return index >= 0 and index < len(arquivo)
 
 
-def ler_meta(caminho, index=None):
+def ler_meta(caminho: str, index: int = None) -> Meta | list[Meta] | None:
     arquivo = ferramentas.ler_csv(caminho + metas_caminho)
 
     if not index:
-        return [meta.Meta(*dados) for dados in arquivo]
+        return [Meta(*dados) for dados in arquivo]
 
     if not index_valido(index, arquivo):
         return None
 
-    meta_lida = meta.Meta(*arquivo[index])
-
-    return meta_lida
+    return Meta(*arquivo[index])
 
 
-def atualizar_meta(caminho, index, dados):
+def atualizar_meta(caminho: str, index: int, dados: Meta) -> None:
     arquivo = ferramentas.ler_csv(caminho + metas_caminho)
 
     if not index_valido(index, arquivo):
@@ -49,7 +47,7 @@ def atualizar_meta(caminho, index, dados):
     ferramentas.escrever_csv(caminho + metas_caminho, arquivo)
 
 
-def deletar_meta(caminho, index):
+def deletar_meta(caminho: str, index: int) -> None:
     arquivo = ferramentas.ler_csv(caminho + metas_caminho)
 
     if not index_valido(index, arquivo):
@@ -58,4 +56,3 @@ def deletar_meta(caminho, index):
     arquivo.pop(index)
 
     ferramentas.escrever_csv(caminho + metas_caminho, arquivo)
-

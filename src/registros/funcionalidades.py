@@ -1,14 +1,17 @@
-def filtrar(dados, modo, valor):
+from .registro import Registro
+
+
+def filtrar(dados: list[Registro], modo: str, valor) -> list[Registro]:
     registros_filtrados = []
 
-    for dado in dados:
-        if getattr(dado, modo) == valor:
-            registros_filtrados.append(dado)
+    for i in dados:
+        if getattr(i, modo) == valor:
+            registros_filtrados.append(i)
 
     return registros_filtrados
 
 
-def filtrar_mes(dados, mes, ano):
+def filtrar_mes(dados: list[Registro], mes: int, ano: int) -> list[Registro]:
     filtrados = []
 
     for i in dados:
@@ -18,8 +21,8 @@ def filtrar_mes(dados, mes, ano):
     return filtrados
 
 
-def ordenar_data(dados):
-    def ordenar(dado):
+def ordenar_data(dados: list[Registro]) -> list[Registro]:
+    def ordenar(dado: Registro):
         data = dado.data
         dia = data.dia
         mes = data.mes

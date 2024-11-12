@@ -1,7 +1,7 @@
 import os
 
 
-def ler_csv(caminho, criar=True):
+def ler_csv(caminho: str, criar: bool = True) -> list:
     if not os.path.exists(caminho) and criar:
         escrever_csv(caminho, [])
 
@@ -15,7 +15,7 @@ def ler_csv(caminho, criar=True):
     return dados
 
 
-def escrever_csv(caminho, dados):
+def escrever_csv(caminho: str, dados: list) -> None:
     with open(caminho, "w", encoding="utf8") as arquivo:
         for formato in dados:
             linha = ",".join(str(valor) for valor in formato)
