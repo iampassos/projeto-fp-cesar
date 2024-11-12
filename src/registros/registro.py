@@ -1,4 +1,4 @@
-from .. import data as Data
+from . import data as Data
 
 
 class Registro:
@@ -30,8 +30,15 @@ class Registro:
             de corrida.
     """
 
-    def __init__(self, tipo: str, data: str, distancia: int, duracao: int,
-                 localizacao: str, clima: str) -> None:
+    def __init__(
+        self,
+        tipo: str,
+        data: str,
+        distancia: int,
+        duracao: int,
+        localizacao: str,
+        clima: str,
+    ) -> None:
         """
         Inicializa uma nova instância de `Registro`.
 
@@ -57,6 +64,4 @@ class Registro:
         Returns:
             str: String formatada contendo os detalhes da sessão de corrida.
         """
-        return f"{self.tipo}, {self.data}, {self.distancia} km, {
-            self.duracao
-        } m, {self.localizacao}, {self.clima}"
+        return f"{self.tipo}, {self.data}, {self.distancia} km, {self.duracao} m, {self.localizacao}, {self.clima}"

@@ -26,7 +26,7 @@ def ler_csv(caminho):
             formato = linha.strip().split(",")
             dados.append(formato)
 
-    return dados
+    return dados[1:]
 
 
 def escrever_csv(caminho, dados):
@@ -42,7 +42,7 @@ def escrever_csv(caminho, dados):
         dados (list): Lista de listas contendo os dados a serem gravados no CSV
                     Exemplo: [["nome", "idade"], ["João", 17], ["Mircio", 18]]
     """
-    with open(caminho, "w", encoding="utf8" ) as arquivo:
+    with open(caminho, "w", encoding="utf8") as arquivo:
         for formato in dados:
             linha = ",".join(str(valor) for valor in formato)
             arquivo.write(f"{linha}\n")

@@ -1,10 +1,10 @@
 from .. import ferramentas
-from . import registro as Registro
+from .registro import Registro
 
 registro_caminho: str = "./data/registros.csv"
 
 
-def adicionar_registro(dados: Registro.Registro) -> list[str]:
+def adicionar_registro(dados: Registro) -> list[str]:
     """
     Adiciona um novo registro de treino ou competição ao arquivo CSV.
 
@@ -29,13 +29,19 @@ def adicionar_registro(dados: Registro.Registro) -> list[str]:
     """
     arquivo: list[list[str]] = ferramentas.ler_csv(registro_caminho)
 
-    atributos: list[str] = ["tipo", "data",
-                            "distancia", "duracao", "localizacao", "clima"]
+    atributos: list[str] = [
+        "tipo",
+        "data",
+        "distancia",
+        "duracao",
+        "localizacao",
+        "clima",
+    ]
 
     if len(arquivo) == 0:
         arquivo.append(atributos)
 
-    novo_registro: list[str] = dados.__str__().split(", ")
+    novo_registro: list[str] = dados.__dict__.values()
     arquivo.append(novo_registro)
 
     ferramentas.escrever_csv(registro_caminho, arquivo)
@@ -63,12 +69,12 @@ def index_valido(index: int, arquivo: list[list[str]]) -> bool:
     return index >= 0 and index < len(arquivo)
 
 
-def ler_registro(index: int = None) -> Registro.Registro | list[Registro.Registro] | None:
+def ler_registro(index: int = None) -> Registro | list[Registro] | None:
     """
     Lê um ou todos os registros de treino ou competição de um arquivo CSV.
 
     A função lê o conteúdo do arquivo CSV e retorna um registro específico ou uma lista de todos os registros.
-    Se um índice for fornecido, ela retorna apenas o registro correspondente. Caso o índice não seja válido, 
+    Se um índice for fornecido, ela retorna apenas o registro correspondente. Caso o índice não seja válido,
     retorna `None`. Se nenhum índice for passado, retorna uma lista com todos os registros.
 
     Args:
@@ -105,8 +111,8 @@ def atualizar_registro(index: int, dados: Registro) -> None:
     """
     Atualiza um registro específico em um arquivo CSV com os novos dados fornecidos.
 
-    A função lê o conteúdo do arquivo CSV, substitui o registro no índice especificado pelos dados 
-    fornecidos e grava o arquivo atualizado. Caso o índice fornecido seja inválido, a função não 
+    A função lê o conteúdo do arquivo CSV, substitui o registro no índice especificado pelos dados
+    fornecidos e grava o arquivo atualizado. Caso o índice fornecido seja inválido, a função não
     realiza nenhuma ação.
 
     Args:
@@ -139,7 +145,7 @@ def deletar_registro(index: int) -> None:
     """
     Deleta um registro específico de um arquivo CSV com base no índice fornecido.
 
-    A função lê o conteúdo do arquivo CSV, remove o registro localizado no índice especificado e 
+    A função lê o conteúdo do arquivo CSV, remove o registro localizado no índice especificado e
     salva o arquivo atualizado. Caso o índice seja inválido, a função não realiza nenhuma ação.
 
     Args:
@@ -164,3 +170,6 @@ def deletar_registro(index: int) -> None:
     arquivo.pop(index)
 
     ferramentas.escrever_csv(registro_caminho, arquivo)
+
+
+adicionar_registro(Registro("treino", "12/11/2022", 56, 34, "Recife", "clima"))
