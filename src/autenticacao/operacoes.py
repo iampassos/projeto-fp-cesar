@@ -15,15 +15,15 @@ def adicionar_usuario(dados):
 
     os.makedirs(caminho, exist_ok=True)
 
-    arquivo: list[list[str]] = ferramentas.ler_csv(
+    arquivo = ferramentas.ler_csv(
         caminho + dados_usuario_caminho)
 
-    atributos: list[str] = ["nome", "email", "senha"]
+    atributos = ["nome", "email", "senha"]
 
     if len(arquivo) == 0:
         arquivo.append(atributos)
 
-    novo_usuario: list[str] = dados.__str__().split(", ")
+    novo_usuario = dados.__str__().split(", ")
     arquivo.append(novo_usuario)
 
     ferramentas.escrever_csv(caminho + dados_usuario_caminho, arquivo)
@@ -65,14 +65,11 @@ def atualizar_usuario(email, dados):
         return None
 
     arquivo = ferramentas.ler_csv(caminho + dados_usuario_caminho)
-    arquivo[0] = ["nome", "email", "senha"]
 
-    novo_usuario: list[str] = dados.__str__().split(", ")
-    arquivo.append(novo_usuario)
+    novo_usuario = dados.__str__().split(", ")
+    arquivo[1] = novo_usuario
 
     ferramentas.escrever_csv(caminho + dados_usuario_caminho, arquivo)
-
-    return novo_usuario
 
 
 def deletar_usuario(email):

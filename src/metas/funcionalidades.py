@@ -2,26 +2,24 @@ from datetime import datetime
 from ..registros import funcionalidades
 
 
-def acompanhar_meta(dados, meta):
-    filtrados = funcionalidades.registros_mes(
+def acompanhar_meta_distancia(dados, meta):
+    filtrados = funcionalidades.filtrar_mes(
         dados, datetime.now().month, datetime.now().year % 100)
 
-    if meta.tempo:
-        resultados = []
+    total = sum([i.distancia for i in filtrados])
 
-        for i in filtrados:
-            tempo = (i.distancia / i.duracao) * 60
-            resultados.append(tempo >= (meta.quantidade / meta.tempo) * 60)
+    return total
 
-        return resultados
 
-    soma = 0
+def acompanhar_meta_tempo(dados, meta):
+    filtrados = funcionalidades.filtrar_mes(
+        dados, datetime.now().month, datetime.now().year % 100)
+
+    resultados = []
 
     for i in filtrados:
-        soma += i.distancia
+        tempo = (i.distancia / i.duracao) * 60
+        resultados.append([i, tempo >= (meta.distancia / meta.tempo) * 60])
 
-    return soma
-
-
-
+    return resultados
 

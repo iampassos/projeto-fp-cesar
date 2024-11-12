@@ -12,7 +12,7 @@ def ler_csv(caminho, criar=True):
             formato = linha.strip().split(",")
             dados.append(formato)
 
-    return dados[1:]
+    return dados
 
 
 def escrever_csv(caminho, dados):

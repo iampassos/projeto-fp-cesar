@@ -12,5 +12,5 @@ class Registro:
 
     def __str__(self):
         return f"{self.tipo}, {self.data}, {
-            self.distancia} km, {self.duracao} m, {
+            self.distancia}, {self.duracao}, {
             self.localizacao}, {self.clima}"

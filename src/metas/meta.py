@@ -1,10 +1,9 @@
 class Meta:
-    def __init__(self, tipo, descricao, quantidade,
-                 tempo=None):
+    def __init__(self, tipo, distancia, tempo=None):
         self.tipo = tipo
-        self.descricao = descricao
-        self.quantidade = quantidade
+        self.distancia = distancia
         self.tempo = tempo
 
     def __str__(self):
-        return f"{self.tipo}, {self.descricao}, {self.quantidade}"
+        return f"{self.tipo}, {self.distancia}{f", {self.tempo}" if self.tempo
+                                               else ""}"

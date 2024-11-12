@@ -22,7 +22,7 @@ def adicionar_registro(caminho, dados):
 
 
 def index_valido(index, arquivo):
-    return index >= 0 and index < len(arquivo)
+    return index >= 1 and index < len(arquivo)
 
 
 def ler_registro(caminho, index=None):

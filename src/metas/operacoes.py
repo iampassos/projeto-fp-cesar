@@ -7,7 +7,7 @@ metas_caminho = "metas.csv"
 def adicionar_meta(caminho, dados):
     arquivo = ferramentas.ler_csv(caminho + metas_caminho)
 
-    atributos = ["tipo", "descricao", "quantidade"]
+    atributos = ["tipo", "distancia", "tempo"]
 
     if len(arquivo) == 0:
         arquivo.append(atributos)
