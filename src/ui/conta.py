@@ -18,7 +18,6 @@ def inicial(usuario: Usuario, mensagem=None):
 
     if mensagem:
         f.texto_centralizado(mensagem, 2)
-        return
 
     return f.input_centralizado("Opção Desejada: ")
 
@@ -46,7 +45,7 @@ def atualizar_senha(usuario: Usuario, erro=None):
     novo = operacoes.atualizar_usuario(usuario.email, Usuario(
         usuario.nome, usuario.email, senha))
 
-    return tela_conta(novo, "Senha alterada!")
+    return [novo, "Senha alterada!"]
 
 
 def atualizar_nome(usuario: Usuario, erro=None):
@@ -72,7 +71,7 @@ def atualizar_nome(usuario: Usuario, erro=None):
     novo = operacoes.atualizar_usuario(usuario.email, Usuario(
         nome, usuario.email, usuario.senha))
 
-    return tela_conta(novo, "Nome alterado!")
+    return [novo, "Nome alterado!"]
 
 
 def deletar_conta(usuario: Usuario, erro=None):
@@ -90,7 +89,7 @@ def deletar_conta(usuario: Usuario, erro=None):
     nome = f.input_centralizado("Seu Nome: ")
 
     if nome == "q":
-        return None
+        return "q"
 
     if not nome:
         return deletar_conta(usuario, "Nome inválido!")
@@ -100,20 +99,24 @@ def deletar_conta(usuario: Usuario, erro=None):
 
     operacoes.deletar_usuario(usuario.email)
 
+    return None
+
 
 def tela_conta(usuario: Usuario, mensagem=None):
     opcao = inicial(usuario, mensagem)
 
-    if opcao == "q":
-        return "q"
-    elif opcao == "1":
-        atualizar_senha(usuario)
-    elif opcao == "2":
-        atualizar_nome(usuario)
-    elif opcao == "3":
-        resultado = deletar_conta(usuario)
-        if resultado:
-            return None
+    while opcao != "q":
+        if opcao == "1":
+            usuario, mensagem = atualizar_senha(usuario)
+        elif opcao == "2":
+            usuario, mensagem = atualizar_nome(usuario)
+        elif opcao == "3":
+            resultado = deletar_conta(usuario)
 
-    return operacoes.ler_usuario(usuario.email)
+            if resultado is None:
+                return None
+
+        opcao = inicial(usuario, mensagem)
+
+    return usuario
 

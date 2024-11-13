@@ -18,12 +18,7 @@ while rodando:
     elif tela == "2":
         pass
     elif tela == "3":
-        opcao = conta.tela_conta(usuario)
-
-        if opcao == "q":
-            tela = None
-            continue
-        else:
-            usuario = opcao
+        usuario = conta.tela_conta(usuario)
+        tela = "0"
     else:
         tela = dashboard.tela_dashboard(usuario)
