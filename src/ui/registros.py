@@ -74,6 +74,15 @@ def adicionar_registro(usuario: Usuario, erro=None):
         colocada = Data(data.strip())
         atual = Data.data_atual()
 
+        if not (0 < colocada.dia < 32):
+            raise ValueError()
+        
+        if not (0 < colocada.mes < 13):
+            raise ValueError()
+        
+        if colocada.ano < 0:
+            raise ValueError()
+
         colocada_v = colocada.dia + colocada.mes * 31 + colocada.ano * 372
         atual_v = atual.dia + atual.mes * 31 + atual.ano * 372
 
