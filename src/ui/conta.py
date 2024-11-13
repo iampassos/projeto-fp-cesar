@@ -12,9 +12,13 @@ def inicial(usuario: Usuario, mensagem=None):
 
     f.texto_centralizado(
         'Escolha uma opção para continuar ou "q" para voltar', -6)
-    f.texto_centralizado("1 - Atualizar Senha", -4)
-    f.texto_centralizado("2 - Atualizar Nome", -3)
-    f.texto_centralizado("3 - Deletar Conta", -2)
+
+    f.textos_centralizados(
+        "1 - Atualizar Senha",
+        "2 - Atualizar Nome",
+        "3 - Deletar Conta",
+        acima=1
+    )
 
     if mensagem:
         f.texto_centralizado(mensagem, 2)
@@ -37,7 +41,7 @@ def atualizar_senha(usuario: Usuario, erro=None):
     senha = f.input_centralizado("Nova Senha: ")
 
     if senha == "q":
-        return None
+        return "q"
 
     if not senha:
         return atualizar_senha(usuario, "Senha inválida!")
@@ -63,7 +67,7 @@ def atualizar_nome(usuario: Usuario, erro=None):
     nome = f.input_centralizado("Novo Nome: ")
 
     if nome == "q":
-        return None
+        return "q"
 
     if not nome:
         return atualizar_nome(usuario, "Nome inválido!")
@@ -106,17 +110,23 @@ def tela_conta(usuario: Usuario, mensagem=None):
     opcao = inicial(usuario, mensagem)
 
     while opcao != "q":
+        resultado = ""
+
         if opcao == "1":
-            usuario, mensagem = atualizar_senha(usuario)
+            resultado = atualizar_senha(usuario)
         elif opcao == "2":
-            usuario, mensagem = atualizar_nome(usuario)
+            resultado = atualizar_nome(usuario)
         elif opcao == "3":
             resultado = deletar_conta(usuario)
 
             if resultado is None:
                 return None
 
-        opcao = inicial(usuario, mensagem)
+        if len(resultado) == 2:
+            usuario, mensagem = resultado
+            opcao = inicial(usuario, mensagem)
+        else:
+            opcao = inicial(usuario)
 
     return usuario
 

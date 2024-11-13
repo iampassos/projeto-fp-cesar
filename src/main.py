@@ -1,6 +1,7 @@
 from .ui import login
 from .ui import conta
 from .ui import dashboard
+from .ui import registros
 
 rodando = True
 usuario = None
@@ -14,7 +15,8 @@ while rodando:
     if tela == "q":
         usuario = None
     elif tela == "1":
-        pass
+        registros.tela_registros(usuario)
+        tela = "0"
     elif tela == "2":
         pass
     elif tela == "3":

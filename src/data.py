@@ -33,13 +33,15 @@ class Data:
         Exemplo de uso:
             data_hoje = Data.data_atual()
         """
+
         data_hoje = datetime.now()
-        ano, mes, dia = data_hoje.date().split("-")
+        dia, mes, ano = data_hoje.strftime("%d-%m-%y").split("-")
 
-        return Data(f"{dia:02}/{mes:02}/{ano:04}")
+        return Data(f"{dia}/{mes}/{ano}")
 
-    def __str__(self) -> str:
-        """
+
+def __str__(self) -> str:
+    """
         Retorna a representação da data como uma string no formato "DD/MM/AAAA".
 
         Retorna:
@@ -48,4 +50,4 @@ class Data:
         Exemplo de uso:
             str(data_obj)
         """
-        return f"{self.dia:02}/{self.mes:02}/{self.ano:04}"
+    return f"{self.dia:02}/{self.mes:02}/{self.ano:04}"

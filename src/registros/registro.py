@@ -1,6 +1,3 @@
-from ..data import Data
-
-
 class Registro:
     """
     Classe que representa um registro de atividade.
@@ -27,7 +24,7 @@ class Registro:
             clima (str): As condições climáticas durante a atividade.
         """
         self.tipo = tipo
-        self.data = Data(data)
+        self.data = data
         self.distancia = distancia
         self.duracao = duracao
         self.localizacao = localizacao
@@ -43,4 +40,4 @@ class Registro:
         Exemplo de uso:
             str(registro_obj)
         """
-        return f"{self.tipo}, {self.data}, {self.distancia}, {self.duracao}, {self.localizacao}, {self.clima}"
+        return f"{self.tipo.capitalize()}, {self.data}, {self.distancia} km, {self.duracao}m, {self.localizacao.capitalize()}, {self.clima.capitalize()}"

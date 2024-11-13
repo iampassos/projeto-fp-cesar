@@ -11,9 +11,13 @@ def inicial(usuario: Usuario):
 
     f.texto_centralizado(
         'Escolha uma opção para continuar ou "q" para deslogar', -6)
-    f.texto_centralizado("1 - Treinos e Competições", -4)
-    f.texto_centralizado("2 - Metas e Desafios", -3)
-    f.texto_centralizado("3 - Gerenciar Conta", -2)
+
+    f.textos_centralizados(
+        "1 - Treinos e Competições",
+        "2 - Metas e Desafios",
+        "3 - Gerenciar Conta",
+        acima=1
+    )
 
     return f.input_centralizado("Opção Desejada: ")
 
