@@ -134,6 +134,103 @@ def visualizar_registros(usuario: Usuario, erro=None):
     f.input_centralizado("Sair: ", (len(registros) // 2) - 1)
 
 
+def atualizar_registro(usuario: Usuario, erro=None):
+    f.clear()
+
+    print(f"Você está logado como {usuario.nome} ({
+          usuario.email})!".center(f.columns))
+
+    f.texto_centralizado(
+        'Digite "q" no índice para voltar', -2)
+
+    if erro:
+        f.texto_centralizado(erro, 2)
+
+    index = f.input_centralizado("Índice do Registro: ")
+
+    if index == "q":
+        return "q"
+
+    registros = operacoes.ler_registro(f"data/{usuario.email}/")
+
+    try:
+        index = int(index)
+
+        if not operacoes.index_valido(index, registros):
+            raise ValueError()
+    except ValueError:
+        return atualizar_registro(usuario, "Índice inválido!")
+
+    f.clear()
+
+    print(f"Você está logado como {usuario.nome} ({
+          usuario.email})!".center(f.columns))
+
+    f.texto_centralizado(
+        'Digite "q" no tipo para voltar', -5)
+
+    perguntas = ["Tipo (Treino/Competicao): ", "Data (DD/MM/YYYY): ",
+                 "Distância (km): ", "Duração (min): ", "Localização: ", "Clima: "]
+
+    for i, j in enumerate(perguntas):
+        f.texto_centralizado(j, i - 3)
+
+    if erro:
+        f.texto_centralizado(erro, 4)
+
+    respostas = []
+
+    for i, j in enumerate(perguntas):
+        respostas.append(f.input_centralizado(j, i - 3) or None)
+
+        if i == 0 and respostas[0] == "q":
+            return None
+
+    tipo, data, distancia, duracao, localizacao, clima = respostas
+
+    if tipo:
+        if tipo.lower() not in ["treino", "competicao"]:
+            return atualizar_registro(usuario, "Tipo de registro inválido!")
+
+    try:
+        if data:
+            if len(data.split("/")) != 3 or len(data.split("/")[2]) != 4:
+                raise ValueError()
+
+            colocada = Data(data.strip())
+            atual = Data.data_atual()
+
+            if atual.ano < colocada.ano % 100 or atual.mes < colocada.mes % 100 or atual.dia < colocada.dia % 100:
+                raise ValueError
+    except ValueError:
+        return atualizar_registro(usuario, "Data inválida!")
+
+    try:
+        if distancia:
+            distancia = float(distancia)
+
+            if distancia <= 0:
+                raise ValueError()
+    except ValueError:
+        return atualizar_registro(usuario, "Distância inválida!")
+
+    try:
+        if duracao:
+            duracao = float(duracao)
+
+            if duracao <= 0:
+                raise ValueError()
+    except ValueError:
+        return atualizar_registro(usuario, "Duracao inválida!")
+
+    reg = registros[index]
+
+    operacoes.atualizar_registro(
+        f"data/{usuario.email}/", index, Registro(tipo or reg.tipo, data or reg.data, distancia or reg.distancia, duracao or reg.duracao, localizacao or reg.localizacao, clima or reg.clima))
+
+    return "Registro atualizado!"
+
+
 def deletar_registro(usuario, erro=None):
     f.clear()
 
@@ -151,10 +248,12 @@ def deletar_registro(usuario, erro=None):
     if index == "q":
         return "q"
 
+    registros = operacoes.ler_registro(f"data/{usuario.email}/")
+
     try:
         index = int(index)
 
-        if not index or index <= 0:
+        if not operacoes.index_valido(index, registros):
             raise ValueError()
     except ValueError:
         return deletar_registro(usuario, "Índice inválido!")
@@ -172,6 +271,8 @@ def tela_registros(usuario: Usuario, mensagem=None):
             mensagem = adicionar_registro(usuario)
         elif opcao == "2":
             mensagem = visualizar_registros(usuario)
+        elif opcao == "3":
+            mensagem = atualizar_registro(usuario)
         elif opcao == "4":
             mensagem = deletar_registro(usuario)
 
