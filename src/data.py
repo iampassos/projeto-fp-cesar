@@ -35,7 +35,7 @@ class Data:
         """
 
         data_hoje = datetime.now()
-        dia, mes, ano = data_hoje.strftime("%d-%m-%y").split("-")
+        dia, mes, ano = data_hoje.strftime("%d-%m-%Y").split("-")
 
         return Data(f"{dia}/{mes}/{ano}")
 
