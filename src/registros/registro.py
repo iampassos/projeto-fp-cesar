@@ -14,7 +14,7 @@ class Registro:
         clima (str): As condições climáticas durante a atividade.
     """
 
-    def __init__(self, tipo: str, data, distancia: float, duracao: float, localizacao: str, clima: str):
+    def __init__(self, tipo: str, data: str, distancia: float, duracao: float, localizacao: str, clima: str):
         """
         Construtor da classe Registro.
 

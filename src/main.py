@@ -1,8 +1,29 @@
-from .autenticacao import operacoes as usuario_operacoes
-from .autenticacao.usuario import Usuario
+from .ui import login
+from .ui import conta
+from .ui import dashboard
 
-from .metas import operacoes as metas_operacoes
-from .metas.meta import Meta
+rodando = True
+usuario = None
+tela = None
 
-from .registros import operacoes as registros_operacoes
-from .registros.registro import Registro
+while rodando:
+    if not usuario:
+        usuario = login.tela_login()
+        tela = None
+
+    if tela == "q":
+        usuario = None
+    elif tela == "1":
+        pass
+    elif tela == "2":
+        pass
+    elif tela == "3":
+        opcao = conta.tela_conta(usuario)
+
+        if opcao == "q":
+            tela = None
+            continue
+        else:
+            usuario = opcao
+    else:
+        tela = dashboard.tela_dashboard(usuario)

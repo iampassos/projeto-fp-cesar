@@ -39,7 +39,7 @@ def adicionar_usuario(dados: Usuario) -> Usuario:
 
     ferramentas.escrever_csv(caminho + dados_usuario_caminho, arquivo)
 
-    return novo_usuario
+    return Usuario(*novo_usuario)
 
 
 def ler_usuario(email: str | None = None) -> Usuario | list[Usuario] | None:
@@ -67,7 +67,7 @@ def ler_usuario(email: str | None = None) -> Usuario | list[Usuario] | None:
 
             dados = ferramentas.ler_csv(f"{usuarios_caminho}/{i}/usuario.csv")
 
-            resultados.append(Usuario(*dados[0]))
+            resultados.append(Usuario(*dados[1]))
 
         return resultados
 
@@ -78,16 +78,19 @@ def ler_usuario(email: str | None = None) -> Usuario | list[Usuario] | None:
         if len(dados) == 0:
             return None
 
-        return Usuario(*dados[0])
+        return Usuario(*dados[1])
 
 
-def atualizar_usuario(email: str, dados: Usuario) -> None:
+def atualizar_usuario(email: str, dados: Usuario) -> Usuario | None:
     """
     Atualiza os dados de um usuário.
 
     Argumentos:
         email (str): O e-mail do usuário a ser atualizado.
         dados (Usuario): O novo objeto Usuario com os dados atualizados.
+
+    Retorna:
+        Usuario: O usuário atualizado ou None caso não exista.
 
     Exemplo de uso:
         atualizar_usuario("email@example.com", usuario_atualizado)
@@ -103,6 +106,8 @@ def atualizar_usuario(email: str, dados: Usuario) -> None:
     arquivo[1] = novo_usuario
 
     ferramentas.escrever_csv(caminho + dados_usuario_caminho, arquivo)
+
+    return Usuario(*novo_usuario)
 
 
 def deletar_usuario(email: str) -> None:
