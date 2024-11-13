@@ -74,8 +74,10 @@ def adicionar_registro(usuario: Usuario, erro=None):
         colocada = Data(data.strip())
         atual = Data.data_atual()
 
-        if atual.ano < colocada.ano % 100 or atual.mes < colocada.mes % 100 or atual.dia < colocada.dia % 100:
-            raise ValueError
+        if (atual.ano % 100 < colocada.ano % 100) or \
+            (atual.ano % 100 == colocada.ano % 100 and atual.mes < colocada.mes) or \
+                (atual.ano % 100 == colocada.ano % 100 and atual.mes == colocada.mes and atual.dia < colocada.dia):
+            raise ValueError()
     except ValueError:
         return adicionar_registro(usuario, "Data inválida!")
 
