@@ -27,13 +27,13 @@ def login(erro=None):
 
     email = f.input_centralizado("Email: ")
 
-    if email == "q":
-        return tela_login()
+    if not email:
+        return login("Email invalido!")
 
     senha = f.input_centralizado("Senha: ", 1)
 
-    if not email or not senha:
-        return login("Email ou senha inválidos!")
+    if not senha:
+        return login("Senha invalida")
 
     usuario = usuario_operacoes.ler_usuario(email)
 
