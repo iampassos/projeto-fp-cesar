@@ -10,6 +10,13 @@ def clear():
 columns, rows = shutil.get_terminal_size()
 
 
+def centralizar_meio_inferior(text):
+    columns, rows = shutil.get_terminal_size()
+    x_position = (columns - len(text)) // 2
+
+    return f"\033[{rows};{x_position}H{text}"
+
+
 def texto_centralizado(text, abaixo=0):
     x_pos = columns // 2 - len(text) // 2
     y_pos = rows // 2 + abaixo

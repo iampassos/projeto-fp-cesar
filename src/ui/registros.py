@@ -113,9 +113,6 @@ def visualizar_registros(usuario: Usuario, erro=None):
     registros: list[Registro] = operacoes.ler_registro(
         f"data/{usuario.email}/")
 
-    f.texto_centralizado(
-        'Digite qualquer tecla para voltar', -(len(registros) // 2) * 2 - 2)
-
     if len(registros) <= 1:
         return "Não há registros para serem mostrados!"
 
@@ -127,14 +124,17 @@ def visualizar_registros(usuario: Usuario, erro=None):
             values.insert(0, "Índice")
             printados.append(
                 f"| {" | ".join([k.capitalize() for k in values])} |")
+            printados.append("-" * len(printados[0]))
         else:
             values = j.__str__().split(", ")
             values.insert(0, str(i))
             printados.append(f"| {" | ".join(values)} |")
 
-    f.textos_centralizados(*printados)
+    printados.append("-" * len(printados[0]))
 
-    f.input_centralizado("Sair: ", (len(registros) // 2) - 1)
+    f.textos_centralizados(*printados, acima=-len(printados) // 2)
+
+    input(f.centralizar_meio_inferior("Pressione Enter para voltar"))
 
 
 def atualizar_registro(usuario: Usuario, erro=None):
@@ -152,7 +152,7 @@ def atualizar_registro(usuario: Usuario, erro=None):
     index = f.input_centralizado("Índice do Registro: ")
 
     if index == "q":
-        return "q"
+        return None
 
     registros = operacoes.ler_registro(f"data/{usuario.email}/")
 
@@ -249,7 +249,7 @@ def deletar_registro(usuario, erro=None):
     index = f.input_centralizado("Índice do Registro: ")
 
     if index == "q":
-        return "q"
+        return None
 
     registros = operacoes.ler_registro(f"data/{usuario.email}/")
 

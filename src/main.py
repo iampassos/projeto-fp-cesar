@@ -2,6 +2,7 @@ from .ui import login
 from .ui import conta
 from .ui import dashboard
 from .ui import registros
+from .ui import metas
 
 rodando = True
 usuario = None
@@ -18,7 +19,8 @@ while rodando:
         registros.tela_registros(usuario)
         tela = "0"
     elif tela == "2":
-        pass
+        metas.tela_metas(usuario)
+        tela = "0"
     elif tela == "3":
         usuario = conta.tela_conta(usuario)
         tela = "0"
