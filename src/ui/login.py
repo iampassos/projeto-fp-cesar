@@ -27,6 +27,9 @@ def login(erro=None):
 
     email = f.input_centralizado("Email: ")
 
+    if email == "q":
+        return tela_login()
+
     if not email:
         return login("Email invalido!")
 
@@ -62,15 +65,18 @@ def cadastro(erro=None):
     if nome == "q":
         return tela_login()
 
+    if not nome:
+        return cadastro("Nome inválido")
+
     email = f.input_centralizado("Email: ", 1)
+
+    if not email or "@" not in email:
+        return cadastro("Email inválido")
 
     senha = f.input_centralizado("Senha: ", 2)
 
-    if not email or not senha or not nome:
-        return cadastro("Email, senha ou nome inválidos!")
-
-    if "@" not in email:
-        return cadastro("Email inválido!")
+    if not senha:
+        return cadastro("Senha inválida")
 
     usuario = usuario_operacoes.ler_usuario(email)
 
