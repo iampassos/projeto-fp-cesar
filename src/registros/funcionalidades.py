@@ -1,5 +1,6 @@
 from .registro import Registro
-
+from .data import Data
+from random import random
 
 def filtrar(dados: list[Registro], modo: str, valor) -> list[Registro]:
     """
