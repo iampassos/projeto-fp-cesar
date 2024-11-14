@@ -150,7 +150,7 @@ def acompanhar_metas(usuario: Usuario, erro=None):
 
             if j.tempo == "-1":
                 values[3] = ""
-                total = funcionalidades.acompanhar_meta_distancia(regs, j)
+                total = funcionalidades.acompanhar_meta_distancia(regs[1:], j)
                 values.append(f"{total:.2f}%")
             else:
                 values.append("")
