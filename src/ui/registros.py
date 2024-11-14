@@ -267,11 +267,11 @@ def sugerir_registro(usuario, erro=None):
     historico = operacoes.ler_registro(f"data/{usuario.email}/")
 
     registro = funcionalidades.sugerir_treino(
-        historico, float(incremento) / 100)
+        historico[1:], float(incremento) / 100)
 
-    f.texto_centralizado(str(registro), 1)
+    f.texto_centralizado(str(registro))
 
-    f.input_centralizado("Pressione qualquer tecla para voltar: ")
+    input(f.centralizar_meio_inferior("Pressione Enter para voltar"))
 
     return "Treino sugerido!"
 
