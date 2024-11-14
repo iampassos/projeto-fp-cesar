@@ -1,5 +1,4 @@
 from ..data import Data
-import time
 from . import ferramentas as f
 from ..autenticacao.usuario import Usuario
 
@@ -209,7 +208,7 @@ def visualizar_registros(usuario: Usuario, erro=None, filtro=None):
         registros.insert(0, coluna)
 
     if filtro == "duracao":
-        resultado = filtro_distancia(usuario)
+        resultado = filtro_duracao(usuario)
 
         if resultado is None:
             return None
