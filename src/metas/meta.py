@@ -28,4 +28,4 @@ class Meta:
         Retorna:
             str: Representação da meta no formato "tipo, distancia, tempo" (se tempo for fornecido).
         """
-        return f"{self.tipo}, {self.distancia}{f', {self.tempo}' if self.tempo else ''}"
+        return f"{self.tipo}, {self.distancia} km{f', {self.tempo}m' if self.tempo else ''}"
