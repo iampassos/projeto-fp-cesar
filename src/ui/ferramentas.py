@@ -2,6 +2,19 @@ import os
 import platform
 import shutil
 
+def is_int(valor):
+    try:
+        int(valor)
+        return True
+    except ValueError:
+        return False
+    
+def is_float(valor):
+    try:
+        float(valor)
+        return True
+    except ValueError:
+        return False
 
 def clear():
     os.system("cls" if platform.system() == "Windows" else "clear")
