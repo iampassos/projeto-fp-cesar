@@ -172,7 +172,7 @@ def filtro_duracao(usuario: Usuario, erro=None):
     if erro:
         f.texto_centralizado(erro, 2)
 
-    dur = f.input_centralizado("Duração para Filtrar (km): ")
+    dur = f.input_centralizado("Duração para Filtrar (min): ")
 
     if dur == "q":
         return None
@@ -363,7 +363,7 @@ def deletar_registro(usuario, erro=None):
     try:
         index = int(index)
 
-        if not operacoes.index_valido(index, registros):
+        if not operacoes.index_valido(index, registros) or float(index) == 0:
             raise ValueError()
     except ValueError:
         return deletar_registro(usuario, "Índice inválido!")

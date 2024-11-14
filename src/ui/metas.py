@@ -204,8 +204,8 @@ def acompanhar_metas(usuario: Usuario, erro=None, tipo="distancia"):
                 if len(total) == 0:
                     return "Não há treinos ou competições para este mês!"
                 for v in total:
-                    values.append("Bateu" if v[0] ==
-                                  j and v[1] else "Não Bateu")
+                    if v[0] == j:
+                        values.append("Bateu" if v[1] else "Não Bateu")
                 printados.append(
                     f"| {" | ".join([f"{k:^12}" for k in values])} |")
 
@@ -257,7 +257,7 @@ def deletar_meta(usuario, erro=None):
 
     metas = operacoes.ler_meta(f"data/{usuario.email}/")
 
-    if not index or not f.is_int(index) or not operacoes.index_valido(int(index), metas):
+    if not index or not f.is_int(index) or not operacoes.index_valido(int(index), metas) or float(index) == 0:
         return deletar_meta(usuario, "Índice inválido!")
 
     operacoes.deletar_meta(f"data/{usuario.email}/", int(index))
