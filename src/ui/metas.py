@@ -198,11 +198,12 @@ def tela_metas(usuario: Usuario, mensagem=None):
     while opcao != "q":
         if opcao == "1":
             opcao_nova = escolher_tipo_meta(usuario)
+            mensagem_nova = None
 
             while opcao_nova != "q":
                 if opcao_nova == "1":
                     mensagem_nova = adicionar_meta_distancia(usuario)
-                if opcao_nova == "2":
+                elif opcao_nova == "2":
                     mensagem_nova = adicionar_meta_tempo(usuario)
 
                 opcao_nova = escolher_tipo_meta(usuario, mensagem_nova)

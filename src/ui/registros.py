@@ -244,6 +244,36 @@ def atualizar_registro(usuario: Usuario, erro=None):
     return "Treino/Competição atualizado!"
 
 
+def sugerir_registro(usuario, erro=None):
+    f.clear()
+
+    print(f"Você está logado como {usuario.nome} ({
+          usuario.email})!".center(f.columns))
+
+    f.texto_centralizado(
+        'Digite "q" no índice para voltar', -2)
+
+    if erro:
+        f.texto_centralizado(erro, 2)
+
+    incremento = f.input_centralizado("Incremento de Dificuldade: ")
+
+    if incremento == "q":
+        return None
+
+    if not f.is_float(incremento) or float(incremento) < 0:
+        return sugerir_registro(usuario, "O incremento deve ser um número em percentual!")
+
+    historico = operacoes.ler_registro(f"data/{usuario.email}/")
+
+    registro = funcionalidades.sugerir_treino(
+        historico, float(incremento) / 100)
+
+    f.texto_centralizado(str(registro), 1)
+
+    return "Treino sugerido!"
+
+
 def deletar_registro(usuario, erro=None):
     f.clear()
 
@@ -274,36 +304,6 @@ def deletar_registro(usuario, erro=None):
     operacoes.deletar_registro(f"data/{usuario.email}/", index)
 
     return "Treino/Competição Deletado!"
-
-
-def sugerir_registro(usuario, erro=None):
-    f.clear()
-
-    print(f"Você está logado como {usuario.nome} ({
-          usuario.email})!".center(f.columns))
-
-    f.texto_centralizado(
-        'Digite "q" no índice para voltar', -2)
-
-    if erro:
-        f.texto_centralizado(erro, 2)
-
-    incremento = f.input_centralizado("Incremento de Dificuldade: ")
-
-    if incremento == "q":
-        return None
-
-    if not f.is_float(incremento) or float(incremento) < 0:
-        return sugerir_registro(usuario, "O incremento deve ser um número em percentual!")
-
-    historico = operacoes.ler_registro(f"data/{usuario.email}/")
-
-    registro = funcionalidades.sugerir_treino(
-        historico, float(incremento) / 100)
-
-    f.texto_centralizado(str(registro), 1)
-
-    return "Treino sugerido!"
 
 
 def tela_registros(usuario: Usuario, mensagem=None):
