@@ -6,11 +6,12 @@ Este projeto tem como finalidade uma aplicação para que vários usuários poss
 
 Realizadores:
 
-* Mircio Ferreira dos Santos Neto
-* Eric Gonçalves Albuquerque
-* João Vitor Assumpção Passos
-* João Guilherme Bezerra Omena Fragoso
 * Bruno Santana dos Santos Araujo Holanda
+* Eric Gonçalves Albuquerque
+* João Guilherme Bezerra Omena Fragoso
+* João Vitor Assumpção Passos
+* Mircio Ferreira dos Santos Neto
+
 
 Orientadoras:
 * Izabella Nunes de Vasconcelos
