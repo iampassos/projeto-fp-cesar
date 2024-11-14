@@ -49,4 +49,6 @@ Para o usuário utilizar a aplicação, as seguintes ferramentas serão necessá
    2.3. Comando [3]: [ **Gerenciamento de conta** ]: este comando serve para que o usuário possa atualizar senha, nome de cadastro e deletar a conta. Obs.: para que a conta seja deletada, o usuário deve digitar corretamente o seu nome cadastrado!
 
 
+## Fluxograma
 
+[Visualização do fluxograma pela plataforma Miro](https://miro.com/welcomeonboard/dm5FQTQ4TThRQXlYa2VJNUhEdUZrMjZIRm5saWlZdVlUWDl2Uk94OHdlVUhqSmQwUmR0OU5FRW9zSzVPczZQNXwzNDU4NzY0NTk4NTE3ODQ2MjIzfDI=?share_link_id=639727423592)
