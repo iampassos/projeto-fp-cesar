@@ -107,7 +107,7 @@ def sugerir_treino(dados: list[Registro], incremento_percentual: float = 0.05) -
 
     return Registro(
         "Treino",
-        data.__str__(),
+        f"{data.dia:02}/{data.mes:02}/{data.ano:04}",
         round(distancia, 1),
         round(duracao, 1),
         localizacao,
