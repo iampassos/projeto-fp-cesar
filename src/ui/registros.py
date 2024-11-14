@@ -159,13 +159,13 @@ def visualizar_registros(usuario: Usuario, erro=None):
         distancia = input(f.centralizar_meio_inferior("Digite uma distância para buscar treinos"))
         filtrados = funcionalidades.filtrar(registros[1:], "distancia", distancia)
 
-        f.textos_centralizados("".join([f"{f.__str__():^12}" for f in filtrados]), acima=-1)
+        f.textos_centralizados("".join([f"{f.__str__():^12}" + "\n" for f in filtrados]), acima=-1)
 
     elif opcao == "3":
         tempo = input(f.centralizar_meio_inferior("Digite um tempo para buscar treinos"))
-        filtrados = funcionalidades.filtrar(registros[1:], "distancia", tempo)
+        filtrados = funcionalidades.filtrar(registros[1:], "duracao", tempo)
 
-        f.textos_centralizados("".join([f"{f.__str__():^12}" for f in filtrados]), acima=-1)
+        f.textos_centralizados("".join([f"{f.__str__():^12}" + "\n" for f in filtrados]), acima=-1)
 
     input(f.centralizar_meio_inferior("Pressione Enter para voltar"))
 
