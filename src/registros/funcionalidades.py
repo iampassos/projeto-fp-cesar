@@ -21,9 +21,14 @@ def filtrar(dados: list[Registro], modo: str, valor) -> list[Registro]:
     """
     registros_filtrados = []
 
-    for i in dados:
-        if getattr(i, modo) == valor:
-            registros_filtrados.append(i)
+    if modo == "distancia" or modo == "duracao":
+        for i in dados:
+            if float(getattr(i, modo)) == float(valor):
+                registros_filtrados.append(i)
+    else:
+        for i in dados:
+            if getattr(i, modo) == valor:
+                registros_filtrados.append(i)
 
     return registros_filtrados
 
@@ -103,8 +108,8 @@ def sugerir_treino(dados: list[Registro], incremento_percentual: float = 0.05) -
     delta_dist = media_dist * 0.1
     delta_tempo = media_tempo * 0.1
 
-    distancia = random() * delta_dist - delta_dist / 2 + media_dist
-    duracao = random() * delta_tempo - delta_tempo / 2 + media_tempo
+    distancia = (random() * delta_dist - delta_dist / 2 + media_dist) * 10
+    duracao = (random() * delta_tempo - delta_tempo / 2 + media_tempo) * 10
 
     return Registro(
         "Treino",
