@@ -1,5 +1,4 @@
 from . import ferramentas as f
-import time
 from ..autenticacao.usuario import Usuario
 from ..registros import operacoes as registros
 
