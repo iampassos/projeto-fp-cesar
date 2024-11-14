@@ -44,8 +44,9 @@ Para o usuário utilizar a aplicação, as seguintes ferramentas serão necessá
 
       2.1.2 Obs: em 'Sugerir Treinos', o usuário deve digitar um valor maior que zero. Esse valor é uma porcentagem de dificuldade, a qual será utilizada como base para todo o histórico de treinos. Caso não existam treinos no banco de dados, ele usará um valor padrão!
 
-   2.2. Comando [2]: [ **Metas** ]
+   2.2. Comando [2]: [Metas]: Este comando serve para que o usuário informe uma meta que deseja cumprir. A aplicação irá calcular o progresso em relação à meta com base nos treinos cadastrados no mês atual.
 
    2.3. Comando [3]: [ **Gerenciamento de conta** ]: este comando serve para que o usuário possa atualizar senha, nome de cadastro e deletar a conta. Obs.: para que a conta seja deletada, o usuário deve digitar corretamente o seu nome cadastrado!
+
 
 
