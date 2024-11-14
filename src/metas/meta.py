@@ -8,7 +8,7 @@ class Meta:
         tempo (float, opcional): O tempo associado à meta, caso se trate de uma meta de tempo.
     """
 
-    def __init__(self, tipo: str, distancia: float, tempo: float = None) -> None:
+    def __init__(self, tipo: str, distancia: float, tempo: float = -1) -> None:
         """
         Construtor da classe Meta.
 

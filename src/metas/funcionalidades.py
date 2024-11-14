@@ -1,9 +1,10 @@
 from datetime import datetime
 from ..registros import funcionalidades
 from .meta import Meta
+from ..registros.registro import Registro
 
 
-def acompanhar_meta_distancia(dados: list[Meta], meta: Meta) -> float:
+def acompanhar_meta_distancia(dados: list[Registro], meta: Meta) -> float:
     """
     Acompanha a meta de distância, somando todas as distâncias realizadas no mês atual.
 
@@ -12,7 +13,7 @@ def acompanhar_meta_distancia(dados: list[Meta], meta: Meta) -> float:
         meta (Meta): A meta a ser acompanhada.
 
     Retorna:
-        float: O total de distância acumulado no mês atual.
+        float: A porcentagem total de distância acumulado no mês atual.
 
     Exemplo de uso:
         acompanhar_meta_distancia(dados, meta_exemplo)
@@ -22,7 +23,7 @@ def acompanhar_meta_distancia(dados: list[Meta], meta: Meta) -> float:
 
     total = sum([i.distancia for i in filtrados])
 
-    return total
+    return total / float(meta.distancia)
 
 
 def acompanhar_meta_tempo(dados: list[Meta], meta: Meta) -> list[list[Meta, bool]]:

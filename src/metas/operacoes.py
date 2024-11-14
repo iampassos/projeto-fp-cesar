@@ -25,7 +25,7 @@ def adicionar_meta(caminho: str, dados: Meta) -> Meta:
     if len(arquivo) == 0:
         arquivo.append(atributos)
 
-    nova_meta = dados.__str__().split(", ")
+    nova_meta = list(dados.__dict__.values())
     arquivo.append(nova_meta)
 
     ferramentas.escrever_csv(caminho + metas_caminho, arquivo)

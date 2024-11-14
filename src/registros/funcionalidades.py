@@ -1,6 +1,7 @@
 from .registro import Registro
-from .data import Data
+from ..data import Data
 from random import random
+
 
 def filtrar(dados: list[Registro], modo: str, valor) -> list[Registro]:
     """
@@ -44,7 +45,7 @@ def filtrar_mes(dados: list[Registro], mes: int, ano: int) -> list[Registro]:
     filtrados = []
 
     for i in dados:
-        if i.data.mes == mes and i.data.ano == ano:
+        if Data(i.data).mes == mes and Data(i.data).ano == ano:
             filtrados.append(i)
 
     return filtrados
@@ -74,6 +75,7 @@ def ordenar_data(dados: list[Registro]) -> list[Registro]:
     registros_ordenados = sorted(dados, key=ordenar)
 
     return registros_ordenados
+
 
 def sugerir_treino(dados: list[Registro], incremento_percentual: float = 0.05) -> Registro:
     media_dist = 2

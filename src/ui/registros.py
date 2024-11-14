@@ -2,7 +2,6 @@ from ..data import Data
 from . import ferramentas as f
 from ..autenticacao.usuario import Usuario
 
-# from ..registros.registro import Registro
 from ..registros import operacoes
 
 from .. import registros
