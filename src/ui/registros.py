@@ -119,30 +119,53 @@ def visualizar_registros(usuario: Usuario, erro=None):
 
     print(f"Você está logado como {usuario.nome} ({
           usuario.email})!".center(f.columns))
+    
+    f.textos_centralizados(
+        "1 - Mostrar todos os treinos",
+        "2 - Filtrar por distância",
+        "3 - Filtrar por tempo",
+        acima=1
+    )
+
+    opcao = input(f.centralizar_meio_inferior("Pressione Enter para voltar"))
 
     registros: list[Registro] = operacoes.ler_registro(
-        f"data/{usuario.email}/")
+    f"data/{usuario.email}/")
 
     if len(registros) <= 1:
         return "Não há registros para serem mostrados!"
 
-    printados = []
+    if opcao == "1":
 
-    for i, j in enumerate(registros):
-        if i == 0:
-            values = list(j.__dict__.values())
-            values.insert(0, "Índice")
-            printados.append(
-                f"| {" | ".join([f"{k.capitalize():^12}" for k in values])} |")
-            printados.append("-" * len(printados[0]))
-        else:
-            values = j.__str__().split(", ")
-            values.insert(0, str(i))
-            printados.append(f"| {" | ".join([f"{k:^12}" for k in values])} |")
+        printados = []
 
-    printados.append("-" * len(printados[0]))
+        for i, j in enumerate(registros):
+            if i == 0:
+                values = list(j.__dict__.values())
+                values.insert(0, "Índice")
+                printados.append(
+                    f"| {" | ".join([f"{k.capitalize():^12}" for k in values])} |")
+                printados.append("-" * len(printados[0]))
+            else:
+                values = j.__str__().split(", ")
+                values.insert(0, str(i))
+                printados.append(f"| {" | ".join([f"{k:^12}" for k in values])} |")
 
-    f.textos_centralizados(*printados, acima=-len(printados) // 2)
+        printados.append("-" * len(printados[0]))
+
+        f.textos_centralizados(*printados, acima=-len(printados) // 2)
+
+    elif opcao == "2":
+        distancia = input(f.centralizar_meio_inferior("Digite uma distância para buscar treinos"))
+        filtrados = funcionalidades.filtrar(registros[1:], "distancia", distancia)
+
+        f.textos_centralizados("".join([f"{f.__str__():^12}" for f in filtrados]), acima=-1)
+
+    elif opcao == "3":
+        tempo = input(f.centralizar_meio_inferior("Digite um tempo para buscar treinos"))
+        filtrados = funcionalidades.filtrar(registros[1:], "distancia", tempo)
+
+        f.textos_centralizados("".join([f"{f.__str__():^12}" for f in filtrados]), acima=-1)
 
     input(f.centralizar_meio_inferior("Pressione Enter para voltar"))
 
@@ -244,38 +267,6 @@ def atualizar_registro(usuario: Usuario, erro=None):
     return "Treino/Competição atualizado!"
 
 
-def sugerir_registro(usuario, erro=None):
-    f.clear()
-
-    print(f"Você está logado como {usuario.nome} ({
-          usuario.email})!".center(f.columns))
-
-    f.texto_centralizado(
-        'Digite "q" no índice para voltar', -2)
-
-    if erro:
-        f.texto_centralizado(erro, 2)
-
-    incremento = f.input_centralizado("Incremento de Dificuldade: ")
-
-    if incremento == "q":
-        return None
-
-    if not f.is_float(incremento) or float(incremento) < 0:
-        return sugerir_registro(usuario, "O incremento deve ser um número em percentual!")
-
-    historico = operacoes.ler_registro(f"data/{usuario.email}/")
-
-    registro = funcionalidades.sugerir_treino(
-        historico[1:], float(incremento) / 100)
-
-    f.texto_centralizado(str(registro))
-
-    input(f.centralizar_meio_inferior("Pressione Enter para voltar"))
-
-    return "Treino sugerido!"
-
-
 def deletar_registro(usuario, erro=None):
     f.clear()
 
@@ -306,6 +297,38 @@ def deletar_registro(usuario, erro=None):
     operacoes.deletar_registro(f"data/{usuario.email}/", index)
 
     return "Treino/Competição Deletado!"
+
+
+def sugerir_registro(usuario, erro=None):
+    f.clear()
+
+    print(f"Você está logado como {usuario.nome} ({
+          usuario.email})!".center(f.columns))
+
+    f.texto_centralizado(
+        'Digite "q" no índice para voltar', -2)
+
+    if erro:
+        f.texto_centralizado(erro, 2)
+
+    incremento = f.input_centralizado("Incremento de Dificuldade em percentual: ")
+
+    if incremento == "q":
+        return None
+
+    if not f.is_float(incremento) or float(incremento) < 0:
+        return sugerir_registro(usuario, "O incremento deve ser um número em percentual!")
+
+    historico = operacoes.ler_registro(f"data/{usuario.email}/")
+
+    registro = funcionalidades.sugerir_treino(
+        historico, float(incremento) / 100)
+
+    f.texto_centralizado(str(registro), 1)
+
+    f.input_centralizado("Pressione qualquer tecla para continuar: ")
+
+    return "Treino sugerido!"
 
 
 def tela_registros(usuario: Usuario, mensagem=None):
