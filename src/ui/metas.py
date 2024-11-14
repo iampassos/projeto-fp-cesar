@@ -69,7 +69,7 @@ def adicionar_meta_distancia(usuario: Usuario, erro=None):
     if distancia == "q":
         return None
 
-    if not distancia or not f.is_float(distancia):
+    if not distancia or not f.is_float(distancia) or float(distancia) <= 0:
         return adicionar_meta_distancia(usuario, "Distância inválida!")
 
     operacoes.adicionar_meta(
@@ -95,6 +95,13 @@ def adicionar_meta_tempo(usuario: Usuario, erro=None):
     if erro:
         f.texto_centralizado(erro, 2)
 
+    metas: list[Meta] = operacoes.ler_meta(
+        f"data/{usuario.email}/")
+
+    for i, j in enumerate(metas):
+        if i != 0 and j.tempo != "-1":
+            return "Já existe uma Meta/Desafio de tempo ativo!"
+
     respostas = []
 
     for i, j in enumerate(perguntas):
@@ -108,10 +115,10 @@ def adicionar_meta_tempo(usuario: Usuario, erro=None):
 
     distancia, tempo = respostas
 
-    if not distancia or not f.is_float(distancia):
+    if not distancia or not f.is_float(distancia) or float(distancia) <= 0:
         return adicionar_meta_tempo(usuario, "Distância inválida!")
 
-    if not tempo or not f.is_float(tempo):
+    if not tempo or not f.is_float(tempo) or float(tempo) <= 0:
         return adicionar_meta_tempo(usuario, "Tempo inválido!")
 
     operacoes.adicionar_meta(
@@ -120,7 +127,7 @@ def adicionar_meta_tempo(usuario: Usuario, erro=None):
     return "Meta/Desafio Adicionado!"
 
 
-def acompanhar_metas(usuario: Usuario, erro=None):
+def acompanhar_metas(usuario: Usuario, erro=None, tipo="distancia"):
     f.clear()
 
     print(f"Você está logado como {usuario.nome} ({
@@ -136,27 +143,93 @@ def acompanhar_metas(usuario: Usuario, erro=None):
 
     regs = registros.ler_registro(f"data/{usuario.email}/")
 
-    for i, j in enumerate(metas):
-        if i == 0:
-            values = list(j.__dict__.values())
-            values.insert(0, "Índice")
-            values.append("Progresso")
-            printados.append(
-                f"| {" | ".join([f"{k.capitalize():^12}" for k in values])} |")
-            printados.append("-" * len(printados[0]))
-        else:
-            values = j.__str__().split(", ")
-            values.insert(0, str(i))
+    if tipo == "distancia":
+        meta_distancia = 0
 
-            if j.tempo == "-1":
-                values[3] = ""
-                total = funcionalidades.acompanhar_meta_distancia(regs[1:], j)
-                values.append(f"{total:.2f}%")
+        for i, j in enumerate(metas):
+            if i != 0 and j.tempo == "-1":
+                meta_distancia += 1
+
+        if meta_distancia == 0:
+            return "Não há uma meta ou desafio de distância ativo!"
+
+        for i, j in enumerate(metas):
+            if i == 0:
+                values = list(j.__dict__.values())
+                values.insert(0, "Índice")
+                values.__delitem__(3)
+                values.append("Progresso")
+                printados.append(
+                    f"| {" | ".join([f"{k.capitalize():^12}" for k in values])} |")
+                printados.append("-" * len(printados[0]))
             else:
-                values.append("")
+                if j.tempo == "-1":
+                    values = j.__str__().split(", ")
+                    values.insert(0, str(i))
+                    values.__delitem__(3)
+                    total = funcionalidades.acompanhar_meta_distancia(
+                        regs[1:], j)
+                    if total[0] == 0:
+                        return "Não há treinos ou competições para este mês!"
+                    values.append(f"{total[1] * 100:.2f}%")
+                    printados.append(
+                        f"| {" | ".join([f"{k:^12}" for k in values])} |")
 
-            printados.append(
-                f"| {" | ".join([f"{k:^12}" for k in values])} |")
+    elif tipo == "tempo":
+        if len(regs) == 0:
+            return "Não há treinos ou competições para se acompanhar!"
+
+        meta_tempo = None
+
+        for i, j in enumerate(metas):
+            if i != 0 and j.tempo != "-1":
+                meta_tempo = j
+
+        if not meta_tempo:
+            return "Não há uma meta ou desafio de tempo ativo!"
+
+        for i, j in enumerate(regs):
+            if i == 0:
+                values = list(j.__dict__.values())
+                values.insert(0, "Índice")
+                values.append("Meta")
+                printados.append(
+                    f"| {" | ".join([f"{k.capitalize():^12}" for k in values])} |")
+                printados.append("-" * len(printados[0]))
+            elif meta_tempo:
+                values = j.__str__().split(", ")
+                values.insert(0, str(i))
+                total = funcionalidades.acompanhar_meta_tempo(
+                    regs[1:], meta_tempo)
+                if len(total) == 0:
+                    return "Não há treinos ou competições para este mês!"
+                for v in total:
+                    values.append("Bateu" if v[0] ==
+                                  j and v[1] else "Não Bateu")
+                printados.append(
+                    f"| {" | ".join([f"{k:^12}" for k in values])} |")
+
+                values = list(j.__dict__.values())
+
+        print("".center(f.columns))
+
+        topo = []
+        for i, j in enumerate(metas):
+            if i == 0:
+                values = list(j.__dict__.values())
+                values.insert(0, "Índice")
+                topo.append(
+                    f"| {" | ".join([f"{k.capitalize():^12}" for k in values])} |")
+                topo.append("-" * len(topo[0]))
+            elif meta_tempo == j:
+                values = list(meta_tempo.__dict__.values())
+                values.insert(0, metas.index(meta_tempo))
+                topo.append(f"| {" | ".join([f"{k:^12}" for k in values])} |")
+
+        topo.append("-" * len(topo[0]))
+
+        for i in topo:
+            print(i.center(f.columns))
 
     printados.append("-" * len(printados[0]))
 
@@ -196,19 +269,24 @@ def tela_metas(usuario: Usuario, mensagem=None):
     opcao = inicial(usuario, mensagem)
 
     while opcao != "q":
-        if opcao == "1":
-            opcao_nova = escolher_tipo_meta(usuario)
+        if opcao == "1" or opcao == "2":
+            opcao_tipo = escolher_tipo_meta(usuario)
             mensagem_nova = None
 
-            while opcao_nova != "q":
-                if opcao_nova == "1":
-                    mensagem_nova = adicionar_meta_distancia(usuario)
-                elif opcao_nova == "2":
-                    mensagem_nova = adicionar_meta_tempo(usuario)
+            while opcao_tipo != "q":
+                if opcao == "1":
+                    if opcao_tipo == "1":
+                        mensagem_nova = adicionar_meta_distancia(usuario)
+                    elif opcao_tipo == "2":
+                        mensagem_nova = adicionar_meta_tempo(usuario)
+                elif opcao == "2":
+                    if opcao_tipo == "1":
+                        mensagem_nova = acompanhar_metas(
+                            usuario, tipo="distancia")
+                    elif opcao_tipo == "2":
+                        mensagem_nova = acompanhar_metas(usuario, tipo="tempo")
 
-                opcao_nova = escolher_tipo_meta(usuario, mensagem_nova)
-        elif opcao == "2":
-            mensagem = acompanhar_metas(usuario)
+                opcao_tipo = escolher_tipo_meta(usuario, mensagem_nova)
         elif opcao == "3":
             mensagem = deletar_meta(usuario)
 

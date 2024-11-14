@@ -46,7 +46,7 @@ def filtrar_mes(dados: list[Registro], mes: int, ano: int) -> list[Registro]:
     filtrados = []
 
     for i in dados:
-        if Data(i.data).mes == mes and Data(i.data).ano == ano:
+        if Data(i.data).mes == mes and Data(i.data).ano % 100 == ano % 100:
             filtrados.append(i)
 
     return filtrados

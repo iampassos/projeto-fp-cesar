@@ -2,19 +2,22 @@ import os
 import platform
 import shutil
 
+
 def is_int(valor):
     try:
         int(valor)
         return True
     except ValueError:
         return False
-    
+
+
 def is_float(valor):
     try:
         float(valor)
         return True
     except ValueError:
         return False
+
 
 def clear():
     os.system("cls" if platform.system() == "Windows" else "clear")
@@ -23,9 +26,9 @@ def clear():
 columns, rows = shutil.get_terminal_size()
 
 
-def centralizar_meio_inferior(text):
+def centralizar_meio_inferior(text, acima=0):
     columns, rows = shutil.get_terminal_size()
-    x_position = (columns - len(text)) // 2
+    x_position = (columns - len(text)) // 2 - acima
 
     return f"\033[{rows};{x_position}H{text}"
 
