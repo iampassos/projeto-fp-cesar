@@ -96,8 +96,8 @@ def sugerir_treino(dados: list[Registro], incremento_percentual: float = 0.05) -
 
         localizacao = dados[-1].localizacao
 
-    delta_dist *= (1 + incremento_percentual)
-    delta_tempo *= (1 + incremento_percentual)
+    media_dist *= (1 + incremento_percentual)
+    media_tempo *= (1 + incremento_percentual)
 
     delta_dist = media_dist * 0.1
     delta_tempo = media_tempo * 0.1
