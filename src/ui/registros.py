@@ -3,6 +3,7 @@ from . import ferramentas as f
 from ..autenticacao.usuario import Usuario
 
 from ..registros import operacoes
+from ..registros import funcionalidades
 
 from .. import registros
 
@@ -16,13 +17,14 @@ def inicial(usuario: Usuario, mensagem=None):
           usuario.email})!".center(f.columns))
 
     f.texto_centralizado(
-        'Escolha uma opção para continuar ou "q" para voltar', -7)
+        'Escolha uma opção para continuar ou "q" para voltar', -8)
 
     f.textos_centralizados(
         "1 - Adicionar Treinos ou Competições",
         "2 - Visualizar Treinos ou Competições",
         "3 - Atualizar Treinos ou Competições",
-        "4 - Deletar Treinos ou Competições",
+        "4 - Sugerir Treino ou Competição",
+        "5 - Deletar Treinos ou Competições",
         acima=1
     )
 
@@ -109,7 +111,7 @@ def adicionar_registro(usuario: Usuario, erro=None):
     operacoes.adicionar_registro(
         f"data/{usuario.email}/", Registro(tipo, data, distancia, duracao, localizacao, clima))
 
-    return "Registro adicionado!"
+    return "Treino/Competição adicionado!"
 
 
 def visualizar_registros(usuario: Usuario, erro=None):
@@ -239,7 +241,7 @@ def atualizar_registro(usuario: Usuario, erro=None):
     operacoes.atualizar_registro(
         f"data/{usuario.email}/", index, Registro(tipo or reg.tipo, data or reg.data, distancia or reg.distancia, duracao or reg.duracao, localizacao or reg.localizacao, clima or reg.clima))
 
-    return "Registro atualizado!"
+    return "Treino/Competição atualizado!"
 
 
 def deletar_registro(usuario, erro=None):
@@ -271,7 +273,37 @@ def deletar_registro(usuario, erro=None):
 
     operacoes.deletar_registro(f"data/{usuario.email}/", index)
 
-    return "Registro Deletado!"
+    return "Treino/Competição Deletado!"
+
+
+def sugerir_registro(usuario, erro=None):
+    f.clear()
+
+    print(f"Você está logado como {usuario.nome} ({
+          usuario.email})!".center(f.columns))
+
+    f.texto_centralizado(
+        'Digite "q" no índice para voltar', -2)
+
+    if erro:
+        f.texto_centralizado(erro, 2)
+
+    incremento = f.input_centralizado("Incremento de Dificuldade: ")
+
+    if incremento == "q":
+        return None
+
+    if not f.is_float(incremento) or float(incremento) < 0:
+        return sugerir_registro(usuario, "O incremento deve ser um número em percentual!")
+
+    historico = operacoes.ler_registro(f"data/{usuario.email}/")
+
+    registro = funcionalidades.sugerir_treino(
+        historico, float(incremento) / 100)
+
+    f.texto_centralizado(str(registro), 1)
+
+    return "Treino sugerido!"
 
 
 def tela_registros(usuario: Usuario, mensagem=None):
@@ -285,6 +317,8 @@ def tela_registros(usuario: Usuario, mensagem=None):
         elif opcao == "3":
             mensagem = atualizar_registro(usuario)
         elif opcao == "4":
+            mensagem = sugerir_registro(usuario)
+        elif opcao == "5":
             mensagem = deletar_registro(usuario)
 
         opcao = inicial(usuario, mensagem)
