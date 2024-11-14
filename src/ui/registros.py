@@ -271,6 +271,8 @@ def sugerir_registro(usuario, erro=None):
 
     f.texto_centralizado(str(registro), 1)
 
+    f.input_centralizado("Pressione qualquer tecla para voltar: ")
+
     return "Treino sugerido!"
 
 
