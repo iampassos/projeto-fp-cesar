@@ -76,10 +76,10 @@ def adicionar_registro(usuario: Usuario, erro=None):
 
         if not (0 < colocada.dia < 32):
             raise ValueError()
-        
+
         if not (0 < colocada.mes < 13):
             raise ValueError()
-        
+
         if colocada.ano < 0:
             raise ValueError()
 
@@ -132,12 +132,12 @@ def visualizar_registros(usuario: Usuario, erro=None):
             values = list(j.__dict__.values())
             values.insert(0, "Índice")
             printados.append(
-                f"| {" | ".join([k.capitalize() for k in values])} |")
+                f"| {" | ".join([f"{k.capitalize():^12}" for k in values])} |")
             printados.append("-" * len(printados[0]))
         else:
             values = j.__str__().split(", ")
             values.insert(0, str(i))
-            printados.append(f"| {" | ".join(values)} |")
+            printados.append(f"| {" | ".join([f"{k:^12}" for k in values])} |")
 
     printados.append("-" * len(printados[0]))
 
