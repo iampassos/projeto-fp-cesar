@@ -51,4 +51,6 @@ Para o usuário utilizar a aplicação, as seguintes ferramentas serão necessá
 
 ## Fluxograma
 
+obs: É nescessario ter uma conta cadastrado no Miro
+
 [Visualização do fluxograma pela plataforma Miro](https://miro.com/app/board/uXjVLFL9aFE=/?share_link_id=57659260197)
