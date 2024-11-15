@@ -51,4 +51,4 @@ Para o usuário utilizar a aplicação, as seguintes ferramentas serão necessá
 
 ## Fluxograma
 
-[Visualização do fluxograma pela plataforma Miro](https://miro.com/welcomeonboard/dm5FQTQ4TThRQXlYa2VJNUhEdUZrMjZIRm5saWlZdVlUWDl2Uk94OHdlVUhqSmQwUmR0OU5FRW9zSzVPczZQNXwzNDU4NzY0NTk4NTE3ODQ2MjIzfDI=?share_link_id=639727423592)
+[Visualização do fluxograma pela plataforma Miro](https://miro.com/app/board/uXjVLFL9aFE=/?share_link_id=57659260197)
